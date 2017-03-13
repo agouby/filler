@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/13 08:21:22 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/13 08:55:11 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct	s_fill
 	char	**map;
 	t_coord	m;
 	t_coord	p;
-	t_coord	player;
+	char	player_m;
+	char	player_o;
 	char	**piece;
 }				t_fill;
 
@@ -53,6 +54,6 @@ void	store_infos(int, t_fill *);
 void	jump_lines(int, char *, size_t);
 void	create_piece(int, char *, t_fill *);
 void	del_arrays(t_fill *fill);
-void	get_first_pos(t_fill *fill);
+void	get_first_pos(t_fill *fill, t_play *play);
 
 #endif
