@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/13 02:47:20 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/13 07:07:37 by agouby           ###   ########.fr       */
+/*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
+/*   Updated: 2017/03/13 07:53:13 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	print_map(char **map)
+void	jump_lines(int fd, char *line, size_t n)
 {
-	while (*map)
-		ft_printf("%s\n", *map++);
-}
+	size_t i;
 
-void	print_piece(char **piece)
-{
-	while (*piece)
-		ft_printf("%s\n", *piece++);
+	i = 0;
+	while (i++ < n)
+	{
+		get_next_line(fd, &line);
+		ft_strdel(&line);
+	}
 }
