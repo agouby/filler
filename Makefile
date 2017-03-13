@@ -6,14 +6,14 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/12 05:15:07 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/13 03:21:48 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = players/agouby.filler
 CC = gcc
 INC = -I./includes
-SRC =  srcs/filler.c 
+SRC =  $(shell find ./srcs | grep "\.c")
 
 OBJ = $(SRC:%.c=%.o)
 FLAGS = -Wall -Werror -Wextra
@@ -34,6 +34,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -rf srcs/*.c.swp
 	make fclean -C lib
 re: fclean all
 
