@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*   prfgs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int			is_end_flag(char c)
+int			pr_is_end_flag(char c)
 {
 	char *srch;
 
@@ -20,11 +20,11 @@ int			is_end_flag(char c)
 	return (ft_strchr_b(srch, c));
 }
 
-static int	get_end_flag(int s, int *e, const char *format)
+static int	pr_get_end_flag(int s, int *e, const char *format)
 {
 	while (format[s])
 	{
-		if (is_end_flag(format[s + 1]))
+		if (pr_is_end_flag(format[s + 1]))
 		{
 			*e = s + 1;
 			return (*e);
@@ -34,71 +34,71 @@ static int	get_end_flag(int s, int *e, const char *format)
 	return (0);
 }
 
-char		*store_flags(int s, int *e, int *len, const char *format)
+char		*pr_store_prfgs(int s, int *e, int *len, const char *format)
 {
 	char	*str_flag;
 
 	str_flag = NULL;
-	get_end_flag(s, e, format);
+	pr_get_end_flag(s, e, format);
 	*len = *e - s;
 	if (*len > 0)
 		str_flag = ft_strsub(format, s + 1, *len);
 	return (str_flag);
 }
 
-void		modify_infos(char type, t_infos *infos, t_flags *flags)
+void		pr_modify_prinf(char type, t_prinf *prinf, t_prfgs *prfgs)
 {
-	if (infos->zero_flag)
+	if (prinf->zero_flag)
 	{
-		if (infos->min_flag || (infos->prec_flag && (arg_is_digit(type))))
-			infos->zero_flag = 0;
+		if (prinf->min_flag || (prinf->prec_flag && (pr_arg_is_digit(type))))
+			prinf->zero_flag = 0;
 	}
-	if (infos->min_flag)
+	if (prinf->min_flag)
 	{
-		if (!infos->w_flag)
-			infos->min_flag = 0;
+		if (!prinf->w_flag)
+			prinf->min_flag = 0;
 	}
-	if (infos->sp_flag)
+	if (prinf->sp_flag)
 	{
-		if (!arg_is_signed(type) || (int)flags->arg_num < 0 || infos->plus_flag)
-			infos->sp_flag = 0;
+		if (!pr_arg_is_sig(type) || (int)prfgs->arg_num < 0 || prinf->plus_flag)
+			prinf->sp_flag = 0;
 	}
-	if (infos->plus_flag)
+	if (prinf->plus_flag)
 	{
-		if (!arg_is_signed(type) || (int)flags->arg_num < 0)
-			infos->plus_flag = 0;
+		if (!pr_arg_is_sig(type) || (int)prfgs->arg_num < 0)
+			prinf->plus_flag = 0;
 	}
 	if (type == 'p')
 	{
-		infos->l_flag = 1;
-		infos->hash_flag = 1;
+		prinf->l_flag = 1;
+		prinf->hash_flag = 1;
 	}
 }
 
-int			put_infos_in_str(t_flags *flags, t_infos *infos)
+int			pr_put_prinf_in_str(t_prfgs *prfgs, t_prinf *prinf)
 {
 	char	type;
 
-	type = get_type(flags);
+	type = pr_get_type(prfgs);
 	if (type != 'C' && type != 'S')
-		infos->len_arg = (int)ft_strlen(flags->arg_str);
-	infos->prec_size = infos->prec_flag - infos->len_arg;
-	modify_infos(type, infos, flags);
-	if (is_no_type(type))
-		deal_with_notype(flags, infos);
-	else if (arg_is_digit(type))
-		deal_with_digit(type, flags, infos);
-	else if (arg_is_char(type))
-		return (deal_with_char(flags, infos));
+		prinf->len_arg = (int)ft_strlen(prfgs->arg_str);
+	prinf->prec_size = prinf->prec_flag - prinf->len_arg;
+	pr_modify_prinf(type, prinf, prfgs);
+	if (pr_is_no_type(type))
+		pr_deal_with_notype(prfgs, prinf);
+	else if (pr_arg_is_digit(type))
+		pr_deal_with_digit(type, prfgs, prinf);
+	else if (pr_arg_is_char(type))
+		return (pr_deal_with_char(prfgs, prinf));
 	else if (type == '%')
-		deal_with_perc(flags, infos);
-	else if (arg_is_string(type))
-		deal_with_s(flags, infos);
+		pr_deal_with_perc(prfgs, prinf);
+	else if (pr_arg_is_string(type))
+		pr_deal_with_s(prfgs, prinf);
 	else if (type == 'C')
-		return (deal_with_cw(flags, infos));
+		return (pr_deal_with_cw(prfgs, prinf));
 	else if (type == 'S')
-		deal_with_sw(flags, infos);
+		pr_deal_with_sw(prfgs, prinf);
 	else if (type == 'b' || type == 'B')
-		deal_with_b(type, flags);
+		pr_deal_with_b(type, prfgs);
 	return (0);
 }

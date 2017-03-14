@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 15:05:54 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/08 20:55:09 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/14 09:15:59 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include "libft.h"
 
-typedef struct	s_flags
+typedef struct	s_prfgs
 {
 	int					e_flag;
 	int					len_flag;
@@ -29,14 +29,14 @@ typedef struct	s_flags
 	char				*format_tmp;
 	int					empty_arg;
 	int					nb_perc;
-}				t_flags;
+}				t_prfgs;
 
-typedef struct	s_infos
+typedef struct	s_prinf
 {
 	int					prec_flag;
 	int					w_flag;
 	int					len_arg;
-	char				*infos_str;
+	char				*prinf_str;
 	int					prec_size;
 	int					wstar;
 	int					pstar;
@@ -56,60 +56,59 @@ typedef struct	s_infos
 	unsigned char		arg_is_neg : 1;
 	unsigned char		wrong_prec : 1;
 	int					pos_bz;
-}				t_infos;
+}				t_prinf;
 
 int				ft_printf(const char *format, ...);
 int				ft_dprintf(int fd, const char *format, ...);
-int				transform_char(wchar_t wchar, char *fresh, int i);
-size_t			get_byte_len(wchar_t *ws);
-int				get_charlen(wchar_t wchar);
-size_t			get_wstrlen(wchar_t *wstr);
-char			*transform_wstr(wchar_t *wstr);
-void			get_index_perc(t_flags *flags, const char *format);
-int				nb_perc(const char *format);
-void			get_flags_in_list(const char *format, ...);
-void			print_infos(t_infos *infos);
-void			get_infos(t_infos *infos, char *str_flag);
-void			init_all_struct(t_infos **infos, t_flags **flags);
-void			init_infos(t_infos *infos);
-void			get_arg(va_list args, t_flags *f, t_infos *i);
-char			*store_flags(int s, int *e, int *len, const char *f);
-int				put_infos_in_str(t_flags *flags, t_infos *infos);
-int				is_end_flag(char c);
-char			get_type(t_flags *flags);
-unsigned char	arg_is_digit(char type);
-unsigned char	arg_is_signed(char type);
-unsigned char	arg_is_unsigned(char type);
-unsigned char	arg_is_char(char type);
-unsigned char	arg_is_string(char type);
-void			modify_infos(char type, t_infos *i, t_flags *f);
-int				is_no_type(char type);
-void			change_modifier(t_infos *infos);
-int				store_all(va_list args, t_flags *f, t_infos *i, char *format);
-int				flag_is_empty(int fd, t_flags *flags, t_infos *infos);
-int				del_and_print(int fd, t_flags *flags, t_infos *infos);
-void			get_star(t_infos *infos, char *str_flag);
-int				get_conversion(char type);
-char			*choose_conv(long long arg_num, t_infos *i);
-char			*choose_conv_u(char type, unsigned long long n, t_infos *i);
-char			change_type(char type, t_infos *infos);
-void			get_arg_ds(char type, va_list args, t_flags *f, t_infos *i);
-void			get_arg_du(char type, va_list args, t_flags *f, t_infos *i);
-void			get_arg_c(char type, va_list args, t_flags *f, t_infos *i);
-void			get_arg_s(char type, va_list args, t_flags *f, t_infos *i);
-int				is_end_flag(char type);
-void			deal_with_notype(t_flags *flags, t_infos *infos);
-void			deal_with_perc(t_flags *flags, t_infos *infos);
-void			deal_with_prec_d(t_flags *flags, t_infos *infos);
-void			deal_with_digit(char type, t_flags *flags, t_infos *infos);
-int				deal_with_char(t_flags *flags, t_infos *infos);
-void			deal_with_s(t_flags *flags, t_infos *infos);
-void			deal_with_sw(t_flags *flags, t_infos *infos);
-void			deal_with_b(char type, t_flags *flags);
-int				deal_with_cw(t_flags *flags, t_infos *infos);
-char			*add_space_b(char *str);
-void			add_type_front(char type, t_flags *flags, t_infos *infos);
-void			deal_with_zero(char type, t_flags *flags, t_infos *infos);
-void			reverse_bits(char *str);
+int				pr_trans_char(wchar_t wchar, char *fresh, int i);
+size_t			pr_get_byte_len(wchar_t *ws);
+int				pr_get_charlen(wchar_t wchar);
+size_t			pr_get_wstrlen(wchar_t *wstr);
+char			*pr_transform_wstr(wchar_t *wstr);
+void			pr_get_index_perc(t_prfgs *prfgs, const char *format);
+int				pr_nb_perc(const char *format);
+void			pr_get_prfgs_in_list(const char *format, ...);
+void			pr_get_prinf(t_prinf *prinf, char *str_flag);
+void			pr_init_all_struct(t_prinf **prinf, t_prfgs **prfgs);
+void			pr_init_prinf(t_prinf *prinf);
+void			pr_get_arg(va_list args, t_prfgs *f, t_prinf *i);
+char			*pr_store_prfgs(int s, int *e, int *len, const char *f);
+int				pr_put_prinf_in_str(t_prfgs *prfgs, t_prinf *prinf);
+int				pr_is_end_flag(char c);
+char			pr_get_type(t_prfgs *prfgs);
+unsigned char	pr_arg_is_digit(char type);
+unsigned char	pr_arg_is_sig(char type);
+unsigned char	pr_arg_is_unsigned(char type);
+unsigned char	pr_arg_is_char(char type);
+unsigned char	pr_arg_is_string(char type);
+void			pr_modify_prinf(char type, t_prinf *i, t_prfgs *f);
+int				pr_is_no_type(char type);
+void			pr_change_modifier(t_prinf *prinf);
+int				pr_store_all(va_list args, t_prfgs *f, t_prinf *i, char *fo);
+int				pr_flag_is_empty(int fd, t_prfgs *prfgs, t_prinf *prinf);
+int				pr_del_and_print(int fd, t_prfgs *prfgs, t_prinf *prinf);
+void			pr_get_star(t_prinf *prinf, char *str_flag);
+int				pr_get_conversion(char type);
+char			*pr_choose_conv(long long arg_num, t_prinf *i);
+char			*pr_choose_conv_u(char type, unsigned long long n, t_prinf *i);
+char			pr_change_type(char type, t_prinf *prinf);
+void			pr_get_arg_ds(char type, va_list args, t_prfgs *f, t_prinf *i);
+void			pr_get_arg_du(char type, va_list args, t_prfgs *f, t_prinf *i);
+void			pr_get_arg_c(char type, va_list args, t_prfgs *f, t_prinf *i);
+void			pr_get_arg_s(char type, va_list args, t_prfgs *f, t_prinf *i);
+int				pr_is_end_flag(char type);
+void			pr_deal_with_notype(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_perc(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_prec_d(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_digit(char type, t_prfgs *prfgs, t_prinf *prinf);
+int				pr_deal_with_char(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_s(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_sw(t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_b(char type, t_prfgs *prfgs);
+int				pr_deal_with_cw(t_prfgs *prfgs, t_prinf *prinf);
+char			*pr_add_space_b(char *str);
+void			pr_add_type_front(char type, t_prfgs *prfgs, t_prinf *prinf);
+void			pr_deal_with_zero(char type, t_prfgs *prfgs, t_prinf *prinf);
+void			pr_reverse_bits(char *str);
 
 #endif

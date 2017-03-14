@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		get_conversion(char type)
+int		pr_get_conversion(char type)
 {
 	if (type == 'o' || type == 'O')
 		return (8);
@@ -21,19 +21,19 @@ int		get_conversion(char type)
 	return (10);
 }
 
-void	get_star(t_infos *infos, char *str_flag)
+void	pr_get_star(t_prinf *prinf, char *str_flag)
 {
 	while (*str_flag)
 	{
 		if (*str_flag == '.' && *(str_flag + 1) == '*')
 		{
-			infos->pstar = 1;
+			prinf->pstar = 1;
 			str_flag++;
 		}
 		else if (*str_flag == '*')
 		{
-			infos->wstar = 1;
-			infos->w_flag = 0;
+			prinf->wstar = 1;
+			prinf->w_flag = 0;
 		}
 		str_flag++;
 	}

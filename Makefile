@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/13 07:33:38 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/14 13:16:27 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FLAGS = -g -Wall -Werror -Wextra
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) includes/filler.h
 	make -C lib
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L./lib -lftprintf
 

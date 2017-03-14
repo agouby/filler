@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-char	get_type(t_flags *flags)
+char	pr_get_type(t_prfgs *prfgs)
 {
-	if (!*flags->str_flag)
+	if (!*prfgs->str_flag)
 		return ('\0');
-	return (*(flags->str_flag + flags->len_flag - 1));
+	return (*(prfgs->str_flag + prfgs->len_flag - 1));
 }

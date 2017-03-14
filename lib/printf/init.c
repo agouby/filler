@@ -6,63 +6,63 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:44:30 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/09 02:55:49 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/13 01:00:53 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			init_infos(t_infos *infos)
+void			pr_init_prinf(t_prinf *prinf)
 {
-	infos->hash_flag = 0;
-	infos->min_flag = 0;
-	infos->plus_flag = 0;
-	infos->sp_flag = 0;
-	infos->zero_flag = 0;
-	infos->prec_flag = 0;
-	infos->w_flag = 0;
-	infos->z_flag = 0;
-	infos->ll_flag = 0;
-	infos->hh_flag = 0;
-	infos->j_flag = 0;
-	infos->l_flag = 0;
-	infos->h_flag = 0;
-	infos->no_modif = 0;
-	infos->wrong_prec = 0;
-	infos->len_arg = 0;
-	infos->infos_str = NULL;
-	infos->prec_size = 0;
-	infos->pstar = 0;
-	infos->wstar = 0;
+	prinf->hash_flag = 0;
+	prinf->min_flag = 0;
+	prinf->plus_flag = 0;
+	prinf->sp_flag = 0;
+	prinf->zero_flag = 0;
+	prinf->prec_flag = 0;
+	prinf->w_flag = 0;
+	prinf->z_flag = 0;
+	prinf->ll_flag = 0;
+	prinf->hh_flag = 0;
+	prinf->j_flag = 0;
+	prinf->l_flag = 0;
+	prinf->h_flag = 0;
+	prinf->no_modif = 0;
+	prinf->wrong_prec = 0;
+	prinf->len_arg = 0;
+	prinf->prinf_str = NULL;
+	prinf->prec_size = 0;
+	prinf->pstar = 0;
+	prinf->wstar = 0;
 }
 
-static t_flags	*init_flags_struct(t_flags *flags)
+static t_prfgs	*pr_init_prfgs_struct(t_prfgs *prfgs)
 {
-	flags = (t_flags *)malloc(sizeof(t_flags));
-	flags->e_flag = 0;
-	flags->array = NULL;
-	flags->i = 0;
-	flags->len_flag = 0;
-	flags->str_flag = NULL;
-	flags->arg_num = 0;
-	flags->arg_str = NULL;
-	flags->wtmp = NULL;
-	flags->format_tmp = NULL;
-	flags->empty_arg = 0;
-	flags->nb_perc = 0;
-	return (flags);
+	prfgs = (t_prfgs *)malloc(sizeof(t_prfgs));
+	prfgs->e_flag = 0;
+	prfgs->array = NULL;
+	prfgs->i = 0;
+	prfgs->len_flag = 0;
+	prfgs->str_flag = NULL;
+	prfgs->arg_num = 0;
+	prfgs->arg_str = NULL;
+	prfgs->wtmp = NULL;
+	prfgs->format_tmp = NULL;
+	prfgs->empty_arg = 0;
+	prfgs->nb_perc = 0;
+	return (prfgs);
 }
 
-static t_infos	*init_infos_struct(t_infos *infos)
+static t_prinf	*pr_init_prinf_struct(t_prinf *prinf)
 {
-	infos = (t_infos *)malloc(sizeof(t_infos));
-	init_infos(infos);
-	infos->pos_bz = 0;
-	return (infos);
+	prinf = (t_prinf *)malloc(sizeof(t_prinf));
+	pr_init_prinf(prinf);
+	prinf->pos_bz = 0;
+	return (prinf);
 }
 
-void			init_all_struct(t_infos **infos, t_flags **flags)
+void			pr_init_all_struct(t_prinf **prinf, t_prfgs **prfgs)
 {
-	*flags = init_flags_struct(*flags);
-	*infos = init_infos_struct(*infos);
+	*prfgs = pr_init_prfgs_struct(*prfgs);
+	*prinf = pr_init_prinf_struct(*prinf);
 }

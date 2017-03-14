@@ -12,71 +12,71 @@
 
 #include "ft_printf.h"
 
-int		flag_is_empty(int fd, t_flags *flags, t_infos *infos)
+int		pr_flag_is_empty(int fd, t_prfgs *prfgs, t_prinf *prinf)
 {
 	int len;
 
-	len = ft_strlen(flags->format_tmp);
-	write(fd, flags->format_tmp, len);
-	free(flags->array);
-	ft_strdel(&flags->format_tmp);
-	free(flags);
-	free(infos);
+	len = ft_strlen(prfgs->format_tmp);
+	write(fd, prfgs->format_tmp, len);
+	free(prfgs->array);
+	ft_strdel(&prfgs->format_tmp);
+	free(prfgs);
+	free(prinf);
 	return (len);
 }
 
-void	get_all(va_list args, t_flags *flags, t_infos *infos)
+void	pr_get_all(va_list args, t_prfgs *prfgs, t_prinf *prinf)
 {
-	get_infos(infos, flags->str_flag);
-	get_arg(args, flags, infos);
+	pr_get_prinf(prinf, prfgs->str_flag);
+	pr_get_arg(args, prfgs, prinf);
 }
 
-int		del_and_print(int fd, t_flags *flags, t_infos *infos)
+int		pr_del_and_print(int fd, t_prfgs *prfgs, t_prinf *prinf)
 {
 	int ret;
 
-	ret = ft_strlen(flags->format_tmp);
-	if (infos->pos_bz)
-		flags->format_tmp[infos->pos_bz - 1] = '\0';
-	write(fd, flags->format_tmp, ret);
-	ft_strdel(&flags->format_tmp);
-	free(flags->array);
-	free(flags);
-	free(infos);
+	ret = ft_strlen(prfgs->format_tmp);
+	if (prinf->pos_bz)
+		prfgs->format_tmp[prinf->pos_bz - 1] = '\0';
+	write(fd, prfgs->format_tmp, ret);
+	ft_strdel(&prfgs->format_tmp);
+	free(prfgs->array);
+	free(prfgs);
+	free(prinf);
 	return (ret);
 }
 
-void	join_all(t_flags *flags, char *format)
+void	pr_join_all(t_prfgs *prfgs, char *format)
 {
-	flags->format_tmp = ft_strjoin_del(flags->format_tmp, flags->arg_str, 0);
-	if (flags->i + 1 == flags->nb_perc)
-		flags->format_tmp = ft_strnjoin_del_1(flags->format_tmp, format,
-			flags->array[flags->i] + flags->len_flag + 1, ft_strlen(format));
+	prfgs->format_tmp = ft_strjoin_del(prfgs->format_tmp, prfgs->arg_str, 0);
+	if (prfgs->i + 1 == prfgs->nb_perc)
+		prfgs->format_tmp = ft_strnjoin_del_1(prfgs->format_tmp, format,
+			prfgs->array[prfgs->i] + prfgs->len_flag + 1, ft_strlen(format));
 	else
-		flags->format_tmp = ft_strnjoin_del_1(flags->format_tmp, format,
-				flags->array[flags->i] + flags->len_flag + 1,
-				flags->array[flags->i + 1]);
+		prfgs->format_tmp = ft_strnjoin_del_1(prfgs->format_tmp, format,
+				prfgs->array[prfgs->i] + prfgs->len_flag + 1,
+				prfgs->array[prfgs->i + 1]);
 }
 
-int		store_all(va_list args, t_flags *flags, t_infos *infos, char *format)
+int		pr_store_all(va_list args, t_prfgs *prfgs, t_prinf *prinf, char *format)
 {
-	if (flags->nb_perc > 0)
+	if (prfgs->nb_perc > 0)
 	{
-		flags->format_tmp = ft_strsub(format, 0, flags->array[0]);
-		while (flags->i < flags->nb_perc)
+		prfgs->format_tmp = ft_strsub(format, 0, prfgs->array[0]);
+		while (prfgs->i < prfgs->nb_perc)
 		{
-			flags->str_flag = store_flags(flags->array[flags->i],
-					&flags->e_flag, &flags->len_flag, format);
-			if (!flags->str_flag)
+			prfgs->str_flag = pr_store_prfgs(prfgs->array[prfgs->i],
+					&prfgs->e_flag, &prfgs->len_flag, format);
+			if (!prfgs->str_flag)
 				return (0);
-			get_all(args, flags, infos);
-			flags->empty_arg += put_infos_in_str(flags, infos);
-			join_all(flags, (char *)format);
-			flags->i++;
-			ft_strdel(&flags->str_flag);
+			pr_get_all(args, prfgs, prinf);
+			prfgs->empty_arg += pr_put_prinf_in_str(prfgs, prinf);
+			pr_join_all(prfgs, (char *)format);
+			prfgs->i++;
+			ft_strdel(&prfgs->str_flag);
 		}
 	}
 	else
-		flags->format_tmp = ft_strdup(format);
-	return (flags->empty_arg);
+		prfgs->format_tmp = ft_strdup(format);
+	return (prfgs->empty_arg);
 }

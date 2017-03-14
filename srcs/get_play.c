@@ -6,35 +6,58 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 07:49:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/13 08:52:15 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/14 13:41:34 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	get_first_pos(t_fill *fill, t_play *play)
+void	get_first_position(t_fill *fill, t_play *play, char player)
 {
-	t_coord	i;
+	char	*tmp;
+	size_t	i;
+	int found = 0;
 
-	i.y = 0;
-	ft_printf("[%c]\n", fill->player_o);
-	while (fill->map[i.y])
+	i = 0;
+	while (!found)
 	{
-		i.x = 0;
-		while (fill->map[i.y][i.x] != '\0')
+		if ((tmp = ft_strchr(fill->map[i], player)))
 		{
-			if (fill->map[i.y][i.x] == fill->player_o)
+			if (player == fill->player.m)
 			{
-				play->o_start.x = i.x - 4;
-				play->o_start.y = i.y;
+				play->m_pos.x = tmp - 4 - fill->map[i];
+				play->m_pos.y = i;
+				found = 1;
 			}
-			else if (fill->map[i.y][i.x] == fill->player_m)
+			else
 			{
-				play->m_start.x = i.x - 4;
-				play->m_start.y = i.y;
+				play->o_pos.x = tmp - 4 - fill->map[i];
+				play->o_pos.y = i;
+				found = 1;
 			}
-			i.x++;
 		}
-		i.y++;
+		i++;
 	}
+}
+
+void	get_closest_pos(t_fill *fill, t_play *play)
+{
+	get_first_position(fill, play, fill->player.m);
+	get_first_position(fill, play, fill->player.o);
+}
+
+void	get_direction(t_play *play)
+{
+	if (play->o_pos.x - play->m_pos.x < 0)
+		play->dir[0] = 'L';
+	else if (play->o_pos.x - play->m_pos.x > 0)
+		play->dir[0] = 'R';
+	else
+		play->dir[0] = '-';
+	if (play->o_pos.y - play->m_pos.y < 0)
+		play->dir[1] = 'U';
+	else if (play->o_pos.y - play->m_pos.y > 0)
+		play->dir[1] = 'D';
+	else
+		play->dir[1] = '-';
 }

@@ -12,50 +12,50 @@
 
 #include "ft_printf.h"
 
-void	deal_with_width(char type, t_flags *f, t_infos *i)
+void	pr_deal_with_width(char type, t_prfgs *f, t_prinf *i)
 {
 	if (i->w_flag && i->w_flag - i->len_arg > 0)
 	{
 		i->len_arg = (int)ft_strlen(f->arg_str);
 		{
 			if (i->zero_flag)
-				deal_with_zero(type, f, i);
+				pr_deal_with_zero(type, f, i);
 			else if (type != 'p')
-				i->infos_str = ft_strnew_set(i->w_flag - (i->len_arg), ' ');
+				i->prinf_str = ft_strnew_set(i->w_flag - (i->len_arg), ' ');
 			else if (type == 'p' && f->arg_num)
-				i->infos_str = ft_strnew_set(i->w_flag - (i->len_arg), ' ');
+				i->prinf_str = ft_strnew_set(i->w_flag - (i->len_arg), ' ');
 			else
-				i->infos_str = ft_strnew_set(i->w_flag - (i->len_arg) - 2, ' ');
+				i->prinf_str = ft_strnew_set(i->w_flag - (i->len_arg) - 2, ' ');
 			if (type == 'p' && f->arg_num == 0 && !i->zero_flag && !i->min_flag)
-				i->infos_str = ft_strjoin_del(i->infos_str, "0x", 1);
+				i->prinf_str = ft_strjoin_del(i->prinf_str, "0x", 1);
 			if (type == 'p' && f->arg_num == 0 && !i->zero_flag && i->min_flag)
-				i->infos_str = ft_strjoin_del("0x", i->infos_str, 2);
+				i->prinf_str = ft_strjoin_del("0x", i->prinf_str, 2);
 			if (i->min_flag)
-				f->arg_str = ft_strjoin_del(f->arg_str, i->infos_str, 0);
+				f->arg_str = ft_strjoin_del(f->arg_str, i->prinf_str, 0);
 			else
-				f->arg_str = ft_strjoin_del(i->infos_str, f->arg_str, 0);
+				f->arg_str = ft_strjoin_del(i->prinf_str, f->arg_str, 0);
 		}
 	}
 }
 
-void	deal_with_digit(char type, t_flags *flags, t_infos *infos)
+void	pr_deal_with_digit(char type, t_prfgs *prfgs, t_prinf *prinf)
 {
-	deal_with_prec_d(flags, infos);
-	if (arg_is_signed(type) && flags->arg_num < 0)
-		flags->arg_str = ft_strjoin_del("-", flags->arg_str, 2);
-	add_type_front(type, flags, infos);
-	deal_with_width(type, flags, infos);
-	if (type == 'p' && flags->arg_num == 0 &&
-			!infos->zero_flag && !infos->w_flag)
-		flags->arg_str = ft_strjoin_del("0x", flags->arg_str, 2);
-	if (type == 'p' && flags->arg_num == 0 &&
-			!infos->zero_flag && infos->min_flag)
-		ft_swapc(&flags->arg_str[1], &flags->arg_str[2]);
+	pr_deal_with_prec_d(prfgs, prinf);
+	if (pr_arg_is_sig(type) && prfgs->arg_num < 0)
+		prfgs->arg_str = ft_strjoin_del("-", prfgs->arg_str, 2);
+	pr_add_type_front(type, prfgs, prinf);
+	pr_deal_with_width(type, prfgs, prinf);
+	if (type == 'p' && prfgs->arg_num == 0 &&
+			!prinf->zero_flag && !prinf->w_flag)
+		prfgs->arg_str = ft_strjoin_del("0x", prfgs->arg_str, 2);
+	if (type == 'p' && prfgs->arg_num == 0 &&
+			!prinf->zero_flag && prinf->min_flag)
+		ft_swapc(&prfgs->arg_str[1], &prfgs->arg_str[2]);
 	if (type == 'X')
-		flags->arg_str = ft_strtoupper(flags->arg_str);
+		prfgs->arg_str = ft_strtoupper(prfgs->arg_str);
 }
 
-int		deal_with_char(t_flags *f, t_infos *i)
+int		pr_deal_with_char(t_prfgs *f, t_prinf *i)
 {
 	char cpy;
 
@@ -63,13 +63,13 @@ int		deal_with_char(t_flags *f, t_infos *i)
 	if (i->w_flag)
 	{
 		if (!i->zero_flag)
-			i->infos_str = ft_strnew_set(i->w_flag - 1, ' ');
+			i->prinf_str = ft_strnew_set(i->w_flag - 1, ' ');
 		else
-			i->infos_str = ft_strnew_set(i->w_flag - 1, '0');
+			i->prinf_str = ft_strnew_set(i->w_flag - 1, '0');
 		if (i->min_flag)
-			f->arg_str = ft_strjoin_del(f->arg_str, i->infos_str, 0);
+			f->arg_str = ft_strjoin_del(f->arg_str, i->prinf_str, 0);
 		else
-			f->arg_str = ft_strjoin_del(i->infos_str, f->arg_str, 0);
+			f->arg_str = ft_strjoin_del(i->prinf_str, f->arg_str, 0);
 	}
 	if (cpy == 0)
 	{
@@ -83,31 +83,31 @@ int		deal_with_char(t_flags *f, t_infos *i)
 	return (0);
 }
 
-void	deal_with_perc(t_flags *flags, t_infos *infos)
+void	pr_deal_with_perc(t_prfgs *prfgs, t_prinf *prinf)
 {
-	if (infos->w_flag)
+	if (prinf->w_flag)
 	{
-		if (infos->zero_flag)
-			infos->infos_str =
-				ft_strnew_set(infos->w_flag - (infos->len_arg), '0');
+		if (prinf->zero_flag)
+			prinf->prinf_str =
+				ft_strnew_set(prinf->w_flag - (prinf->len_arg), '0');
 		else
-			infos->infos_str =
-				ft_strnew_set(infos->w_flag - (infos->len_arg), ' ');
-		if (infos->min_flag)
-			flags->arg_str =
-				ft_strjoin_del(flags->arg_str, infos->infos_str, 0);
+			prinf->prinf_str =
+				ft_strnew_set(prinf->w_flag - (prinf->len_arg), ' ');
+		if (prinf->min_flag)
+			prfgs->arg_str =
+				ft_strjoin_del(prfgs->arg_str, prinf->prinf_str, 0);
 		else
-			flags->arg_str =
-				ft_strjoin_del(infos->infos_str, flags->arg_str, 0);
+			prfgs->arg_str =
+				ft_strjoin_del(prinf->prinf_str, prfgs->arg_str, 0);
 	}
 }
 
-int		deal_with_cw(t_flags *flags, t_infos *infos)
+int		pr_deal_with_cw(t_prfgs *prfgs, t_prinf *prinf)
 {
-	if (*flags->arg_str == 0)
+	if (*prfgs->arg_str == 0)
 	{
-		flags->format_tmp = ft_strjoin(flags->format_tmp, " ");
-		infos->pos_bz = ft_strlen(flags->format_tmp);
+		prfgs->format_tmp = ft_strjoin(prfgs->format_tmp, " ");
+		prinf->pos_bz = ft_strlen(prfgs->format_tmp);
 		return (1);
 	}
 	return (0);

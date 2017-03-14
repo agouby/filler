@@ -14,32 +14,32 @@
 
 int		ft_dprintf(int fd, const char *format, ...)
 {
-	t_flags *flags;
-	t_infos *infos;
+	t_prfgs *prfgs;
+	t_prinf *prinf;
 	va_list args;
 
 	va_start(args, format);
-	init_all_struct(&infos, &flags);
-	flags->nb_perc = nb_perc(format);
-	get_index_perc(flags, format);
-	if (store_all(args, flags, infos, (char *)format) == 0)
-		return (flag_is_empty(fd, flags, infos));
+	pr_init_all_struct(&prinf, &prfgs);
+	prfgs->nb_perc = pr_nb_perc(format);
+	pr_get_index_perc(prfgs, format);
+	if (pr_store_all(args, prfgs, prinf, (char *)format) == 0)
+		return (pr_flag_is_empty(fd, prfgs, prinf));
 	va_end(args);
-	return (del_and_print(fd, flags, infos));
+	return (pr_del_and_print(fd, prfgs, prinf));
 }
 
 int		ft_printf(const char *format, ...)
 {
-	t_flags *flags;
-	t_infos *infos;
+	t_prfgs *prfgs;
+	t_prinf *prinf;
 	va_list args;
 
 	va_start(args, format);
-	init_all_struct(&infos, &flags);
-	flags->nb_perc = nb_perc(format);
-	get_index_perc(flags, format);
-	if (store_all(args, flags, infos, (char *)format) == 0)
-		return (flag_is_empty(1, flags, infos));
+	pr_init_all_struct(&prinf, &prfgs);
+	prfgs->nb_perc = pr_nb_perc(format);
+	pr_get_index_perc(prfgs, format);
+	if (pr_store_all(args, prfgs, prinf, (char *)format) == 0)
+		return (pr_flag_is_empty(1, prfgs, prinf));
 	va_end(args);
-	return (del_and_print(1, flags, infos));
+	return (pr_del_and_print(1, prfgs, prinf));
 }

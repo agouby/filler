@@ -6,13 +6,13 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 22:53:09 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/07 22:59:59 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/14 08:32:48 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*add_space_b(char *str)
+char	*pr_add_space_b(char *str)
 {
 	int		l;
 	int		i;
@@ -39,7 +39,7 @@ char	*add_space_b(char *str)
 	return (new);
 }
 
-void	reverse_bits(char *str)
+void	pr_reverse_bits(char *str)
 {
 	while (*str)
 	{
@@ -51,59 +51,59 @@ void	reverse_bits(char *str)
 	}
 }
 
-void	deal_with_prec_d(t_flags *flags, t_infos *infos)
+void	pr_deal_with_prec_d(t_prfgs *prfgs, t_prinf *prinf)
 {
-	if (infos->wrong_prec && flags->arg_num == 0 && infos->pstar == 0)
-		*flags->arg_str = '\0';
-	if (infos->prec_flag)
+	if (prinf->wrong_prec && prfgs->arg_num == 0 && prinf->pstar == 0)
+		*prfgs->arg_str = '\0';
+	if (prinf->prec_flag)
 	{
-		if (infos->prec_size > 0)
+		if (prinf->prec_size > 0)
 		{
-			flags->arg_str = ft_strjoin_del(
-				ft_strnew_set(infos->prec_size, '0'), flags->arg_str, 0);
-			infos->len_arg = (int)ft_strlen(flags->arg_str);
+			prfgs->arg_str = ft_strjoin_del(
+				ft_strnew_set(prinf->prec_size, '0'), prfgs->arg_str, 0);
+			prinf->len_arg = (int)ft_strlen(prfgs->arg_str);
 		}
 	}
 }
 
-void	add_type_front(char type, t_flags *flags, t_infos *infos)
+void	pr_add_type_front(char type, t_prfgs *prfgs, t_prinf *prinf)
 {
-	if (infos->sp_flag)
-		flags->arg_str = ft_strjoin_del(" ", flags->arg_str, 2);
-	if (infos->plus_flag)
-		flags->arg_str = ft_strjoin_del("+", flags->arg_str, 2);
+	if (prinf->sp_flag)
+		prfgs->arg_str = ft_strjoin_del(" ", prfgs->arg_str, 2);
+	if (prinf->plus_flag)
+		prfgs->arg_str = ft_strjoin_del("+", prfgs->arg_str, 2);
 	if ((type == 'x' || type == 'X')
-			&& flags->arg_num != 0 && infos->hash_flag && !infos->zero_flag)
-		flags->arg_str = ft_strjoin_del("0x", flags->arg_str, 2);
+			&& prfgs->arg_num != 0 && prinf->hash_flag && !prinf->zero_flag)
+		prfgs->arg_str = ft_strjoin_del("0x", prfgs->arg_str, 2);
 	if ((type == 'o' || type == 'O')
-			&& infos->hash_flag && !infos->prec_flag
-			&& (flags->arg_num > 0 || infos->wrong_prec))
-		flags->arg_str = ft_strjoin_del("0", flags->arg_str, 2);
-	if (type == 'p' && flags->arg_num)
-		flags->arg_str = ft_strjoin_del("0x", flags->arg_str, 2);
-	infos->len_arg = (int)ft_strlen(flags->arg_str);
+			&& prinf->hash_flag && !prinf->prec_flag
+			&& (prfgs->arg_num > 0 || prinf->wrong_prec))
+		prfgs->arg_str = ft_strjoin_del("0", prfgs->arg_str, 2);
+	if (type == 'p' && prfgs->arg_num)
+		prfgs->arg_str = ft_strjoin_del("0x", prfgs->arg_str, 2);
+	prinf->len_arg = (int)ft_strlen(prfgs->arg_str);
 }
 
-void	deal_with_zero(char type, t_flags *flags, t_infos *infos)
+void	pr_deal_with_zero(char type, t_prfgs *prfgs, t_prinf *prinf)
 {
-	infos->infos_str = ft_strnew_set(infos->w_flag - (infos->len_arg), '0');
-	if (infos->sp_flag)
-		flags->arg_str = ft_strjoin_del(flags->arg_str, infos->infos_str, 1);
-	if (infos->sp_flag)
-		ft_swapc(&infos->infos_str[0], &infos->infos_str[1]);
-	if (infos->plus_flag)
+	prinf->prinf_str = ft_strnew_set(prinf->w_flag - (prinf->len_arg), '0');
+	if (prinf->sp_flag)
+		prfgs->arg_str = ft_strjoin_del(prfgs->arg_str, prinf->prinf_str, 1);
+	if (prinf->sp_flag)
+		ft_swapc(&prinf->prinf_str[0], &prinf->prinf_str[1]);
+	if (prinf->plus_flag)
 	{
-		*flags->arg_str = '0';
-		*infos->infos_str = '+';
+		*prfgs->arg_str = '0';
+		*prinf->prinf_str = '+';
 	}
-	if (flags->arg_num < 0)
+	if (prfgs->arg_num < 0)
 	{
-		*flags->arg_str = '0';
-		*infos->infos_str = '-';
+		*prfgs->arg_str = '0';
+		*prinf->prinf_str = '-';
 	}
 	if ((type == 'x' || type == 'X')
-			&& flags->arg_num != 0 && infos->hash_flag)
-		infos->infos_str[1] = 'x';
+			&& prfgs->arg_num != 0 && prinf->hash_flag)
+		prinf->prinf_str[1] = 'x';
 	if (type == 'p')
-		infos->infos_str[1] = 'x';
+		prinf->prinf_str[1] = 'x';
 }

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int			get_charlen(wchar_t wchar)
+int			pr_get_charlen(wchar_t wchar)
 {
 	if (wchar <= 0x7f)
 		return (1);
@@ -24,7 +24,7 @@ int			get_charlen(wchar_t wchar)
 		return (4);
 }
 
-size_t		get_wstrlen(wchar_t *wstr)
+size_t		pr_get_wstrlen(wchar_t *wstr)
 {
 	size_t	len;
 
@@ -36,27 +36,27 @@ size_t		get_wstrlen(wchar_t *wstr)
 	return (len);
 }
 
-size_t		get_byte_len(wchar_t *wstr)
+size_t		pr_get_byte_len(wchar_t *wstr)
 {
 	size_t	len;
 	size_t	byte;
 
-	len = get_wstrlen(wstr);
+	len = pr_get_wstrlen(wstr);
 	byte = 0;
 	while (len > 0)
 	{
-		byte += get_charlen(*wstr);
+		byte += pr_get_charlen(*wstr);
 		wstr++;
 		len--;
 	}
 	return (byte);
 }
 
-int			transform_char(wchar_t wchar, char *new, int i)
+int			pr_trans_char(wchar_t wchar, char *new, int i)
 {
 	int		size;
 
-	size = get_charlen(wchar);
+	size = pr_get_charlen(wchar);
 	if (size == 1)
 		new[i++] = wchar;
 	else if (size == 2)
@@ -80,7 +80,7 @@ int			transform_char(wchar_t wchar, char *new, int i)
 	return (i);
 }
 
-char		*transform_wstr(wchar_t *wstr)
+char		*pr_transform_wstr(wchar_t *wstr)
 {
 	char	*new;
 	int		i;
@@ -91,12 +91,12 @@ char		*transform_wstr(wchar_t *wstr)
 		return (0);
 	i = 0;
 	k = 0;
-	len = get_byte_len(wstr);
+	len = pr_get_byte_len(wstr);
 	new = (char*)malloc(sizeof(char) * len);
 	new[len] = '\0';
 	while (wstr[k])
 	{
-		i = transform_char(wstr[k], new, i);
+		i = pr_trans_char(wstr[k], new, i);
 		k++;
 	}
 	return (new);

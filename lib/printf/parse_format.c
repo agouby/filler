@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		nb_perc(const char *format)
+int		pr_nb_perc(const char *format)
 {
 	int count;
 
@@ -23,7 +23,7 @@ int		nb_perc(const char *format)
 		{
 			count++;
 			format++;
-			while (*format && !is_end_flag(*format))
+			while (*format && !pr_is_end_flag(*format))
 				format++;
 			if (*(format) == '\0')
 				return (count);
@@ -33,22 +33,22 @@ int		nb_perc(const char *format)
 	return (count);
 }
 
-void	get_index_perc(t_flags *flags, const char *format)
+void	pr_get_index_perc(t_prfgs *prfgs, const char *format)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	if (!(flags->array = (int *)malloc(sizeof(int) * flags->nb_perc + 1)))
+	if (!(prfgs->array = (int *)malloc(sizeof(int) * prfgs->nb_perc + 1)))
 		ft_print_error("Failed to allocate memory.");
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			flags->array[j] = i;
+			prfgs->array[j] = i;
 			i++;
-			while (!is_end_flag(format[i]) && format[i])
+			while (!pr_is_end_flag(format[i]) && format[i])
 				i++;
 			j++;
 		}
