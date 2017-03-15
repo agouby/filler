@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 07:49:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 12:23:31 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 20:32:23 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_first_pos(t_fill *fill, t_play *play, char player)
 {
 	char	*tmp;
 	size_t	i;
-	int		found;
+	char	found;
 
 	i = 0;
 	found = 0;
@@ -28,16 +28,14 @@ void	get_first_pos(t_fill *fill, t_play *play, char player)
 			{
 				play->first_m.x = tmp - 4 - fill->map[i];
 				play->first_m.y = i;
-				play->pos_m.x = play->first_m.x; 
-				play->pos_m.y = play->first_m.y; 
+				play->pos_m = play->first_m; 
 				found = 1;
 			}
 			else
 			{
 				play->first_o.x = tmp - 4 - fill->map[i];
 				play->first_o.y = i;
-				play->pos_o.x = play->first_o.x; 
-				play->pos_o.y = play->first_o.y; 
+				play->pos_o = play->first_o; 
 				found = 1;
 			}
 		}
@@ -74,53 +72,69 @@ void	get_last_pos(t_fill *fill, t_play *play, char player)
 	}
 }
 
-void	get_next_pos(t_fill *fill, t_play *play)
+void	get_next_pos_o(t_fill *fill, t_play *play)
 {
+	char	*srch;
+
+	srch = NULL;
 	play->next_o.x = play->pos_o.x;
 	play->next_o.y = play->pos_o.y;
-	ft_printf("%d %d\n", play->next_o.y, play->next_o.x);
-	if (play->next_o.y == play->last_o.y)
+	if ((srch = ft_strchr(fill->map[play->pos_o.y] + play->next_o.x + 5, fill->player.o)))
 	{
-		while (play->next_o.x != play->last_o.x && play->next_o.x != fill->map_s.x)
+		play->next_o.x = srch - fill->map[play->pos_o.y] - 4;
+		play->pos_o.x = srch - fill->map[play->pos_o.y] - 4;
+	}
+	else
+	{
+		while (play->next_o.y <= play->last_o.y)
 		{
-			play->next_o.x++;
-			if (fill->map[play->next_o.y][play->next_o.x + 4] == 'X')
+			play->next_o.y++;
+			play->next_o.x = 0;
+			if ((srch = ft_strchr(fill->map[play->next_o.y] + 4, fill->player.o)))
 			{
-				play->pos_o.x = play->next_o.x;
-				play->pos_o.y = play->next_o.y;
-				return;
+					play->pos_o.x = srch - fill->map[play->next_o.y] - 4;
+					play->pos_o.y = play->next_o.y;
+					return;
 			}
 		}
 	}
-/*	while (fill->first_o.y != fill->last_o.y)
-	{
-
-	}
-*/
 }
 
-void	get_closest_pos(t_fill *fill, t_play *play)
+void	get_next_pos_m(t_fill *fill, t_play *play)
+{
+	char	*srch;
+
+	srch = NULL;
+	play->next_m.x = play->pos_m.x;
+	play->next_m.y = play->pos_m.y;
+	if ((srch = ft_strchr(fill->map[play->pos_m.y] + play->next_m.x + 5, fill->player.m)))
+	{
+		play->next_m.x = srch - fill->map[play->pos_m.y] - 4;
+		play->pos_m.x = srch - fill->map[play->pos_m.y] - 4;
+	}
+	else
+	{
+		while (play->next_m.y <= play->last_m.y)
+		{
+			play->next_m.y++;
+			play->next_m.x = 0;
+			if ((srch = ft_strchr(fill->map[play->next_m.y] + 4, fill->player.m)))
+			{
+					play->pos_m.x = srch - fill->map[play->next_m.y] - 4;
+					play->pos_m.y = play->next_m.y;
+					return;
+			}
+		}
+	}
+}
+
+void	get_closest_pos(t_fill *fill, t_play *play, t_help *help)
 {
 	get_first_pos(fill, play, fill->player.m);
 	get_first_pos(fill, play, fill->player.o);
 	get_last_pos(fill, play, fill->player.m);
 	get_last_pos(fill, play, fill->player.o);
-	get_next_pos(fill, play);
+	get_hypo(fill, play, help);
+	play->pos_o = help->pos_o_saved;
+	play->pos_m = help->pos_m_saved;
 }
-
-/*void	get_direction(t_play *play)
-{
-	if (play->o_pos.x - play->m_pos.x < 0)
-		play->dir[0] = 'L';
-	else if (play->o_pos.x - play->m_pos.x > 0)
-		play->dir[0] = 'R';
-	else
-		play->dir[0] = '-';
-	if (play->o_pos.y - play->m_pos.y < 0)
-		play->dir[1] = 'U';
-	else if (play->o_pos.y - play->m_pos.y > 0)
-		play->dir[1] = 'D';
-	else
-		play->dir[1] = '-';
-}
-*/

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   get_direction.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 11:25:41 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 18:08:33 by agouby           ###   ########.fr       */
+/*   Created: 2017/03/15 20:32:37 by agouby            #+#    #+#             */
+/*   Updated: 2017/03/15 20:34:41 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_pow(int n, int p)
+#include "filler.h"
+
+void	get_direction(t_play *play)
 {
-	if (p < 0)
-		return (0);
-	else if (p == 0)
-		return (1);
-	else if (p < 2)
-		return (n);
+	if (play->pos_o.x - play->pos_m.x < 0)
+		play->dir[0] = 'L';
+	else if (play->pos_o.x - play->pos_m.x > 0)
+		play->dir[0] = 'R';
 	else
-		return (n *= ft_pow(n, p - 1));
-	return (0);
+		play->dir[0] = '-';
+	if (play->pos_o.y - play->pos_m.y < 0)
+		play->dir[1] = 'U';
+	else if (play->pos_o.y - play->pos_m.y > 0)
+		play->dir[1] = 'D';
+	else
+		play->dir[1] = '-';
 }
+

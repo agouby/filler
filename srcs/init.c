@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 11:55:02 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 20:23:42 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		init_coord(t_coord *co)
 {
 	co->x = 0;
 	co->y = 0;
-};
+}
 
 static void	init_fill_struct(t_fill *fill)
 {
@@ -41,8 +41,17 @@ static void	init_play_struct(t_play *play)
 	ft_bzero(play->dir, 3);
 }
 
-void		init_structs(t_fill *fill, t_play *play)
+static void	init_help_struct(t_help *help)
+{
+	help->hypo_tmp = 0;
+	help->small_hypo = 99999999;
+	init_coord(&help->pos_o_saved);
+	init_coord(&help->pos_m_saved);
+}
+
+void		init_structs(t_fill *fill, t_play *play, t_help *help)
 {
 	init_fill_struct(fill);
 	init_play_struct(play);
+	init_help_struct(help);
 }

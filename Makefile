@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/15 11:00:37 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/15 15:21:59 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FLAGS = -g -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ) includes/filler.h
+	rm -rf srcs/*.c.swp
 	make -C lib
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L./lib -lftprintf
 
@@ -33,8 +34,8 @@ clean:
 	make clean -C lib
 
 fclean: clean
-	rm -f $(NAME)
 	rm -rf srcs/*.c.swp
+	rm -f $(NAME)
 	make fclean -C lib
 re: fclean all
 
