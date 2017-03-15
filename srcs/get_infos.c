@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 20:17:41 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 21:11:50 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ void	create_map(int fd, t_fill *fill)
 	fill->map[fill->map_s.y] = NULL;
 }
 
-void	create_piece(int fd, char *line, t_fill *fill)
+void	create_pie(int fd, char *line, t_fill *fill)
 {
 	int	i;
 
 	i = 0;
 	get_next_line(fd, &line);
-	fill->piece_s.y = ft_atoi(line + 6);
-	fill->piece_s.x = ft_atoi(line + 6 + ft_count_digit(fill->piece_s.y, 10));
+	fill->pie_s.y = ft_atoi(line + 6);
+	fill->pie_s.x = ft_atoi(line + 6 + ft_count_digit(fill->pie_s.y, 10));
 	ft_strdel(&line);
-	if (!(fill->piece = (char **)malloc(sizeof(char *) * (fill->piece_s.y + 1))))
+	if (!(fill->piece = (char **)malloc(sizeof(char *) * (fill->pie_s.y + 1))))
 		ft_print_error("Memory allocation failed.");
-	while (i < fill->piece_s.y)
+	while (i < fill->pie_s.y)
 		get_next_line(fd, &fill->piece[i++]);
-	fill->piece[fill->piece_s.y] = NULL;
+	fill->piece[fill->pie_s.y] = NULL;
 }
 
 void	store_infos(int fd, t_fill *fill)
@@ -76,5 +76,5 @@ void	store_infos(int fd, t_fill *fill)
 	get_size(fd, line, fill);
 	jump_lines(fd, line, 1);
 	create_map(fd, fill);
-	create_piece(fd, line, fill);
+	create_pie(fd, line, fill);
 }

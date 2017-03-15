@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:58:06 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 15:06:45 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 21:12:10 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	del_arrays(t_fill *fill)
 		free(fill->map[i++]);
 	free(fill->map);
 	i = 0;
-	while (i < fill->piece_s.y)
+	while (i < fill->pie_s.y)
 		free(fill->piece[i++]);
 	free(fill->piece);
 }

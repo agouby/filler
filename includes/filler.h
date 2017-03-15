@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 20:28:04 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 21:11:33 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_fill
 {
 	char		**map;
 	t_coord		map_s;
-	t_coord		piece_s;
+	t_coord		pie_s;
 	t_player	player;
 	char		**piece;
 }				t_fill;
