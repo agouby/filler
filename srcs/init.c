@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/14 14:05:09 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 11:55:02 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,14 @@ static void	init_fill_struct(t_fill *fill)
 
 static void	init_play_struct(t_play *play)
 {
-	init_coord(&play->o_pos);
-	init_coord(&play->m_pos);
+	init_coord(&play->pos_o);
+	init_coord(&play->pos_m);
+	init_coord(&play->first_o);
+	init_coord(&play->first_m);
+	init_coord(&play->last_o);
+	init_coord(&play->last_m);
+	init_coord(&play->next_o);
+	init_coord(&play->next_m);
 	ft_bzero(play->dir, 3);
 }
 

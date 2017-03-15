@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/14 14:05:07 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/15 11:55:01 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,14 @@ typedef struct	s_fill
 
 typedef	struct	s_play
 {
-	t_coord	o_pos;
-	t_coord	m_pos;
+	t_coord	pos_o;
+	t_coord pos_m;
+	t_coord	first_o;
+	t_coord	first_m;
+	t_coord last_o;
+	t_coord last_m;
+	t_coord next_o;
+	t_coord next_m;
 	char	dir[2];
 }				t_play;
 
@@ -63,6 +69,5 @@ void	del_arrays(t_fill *fill);
 void	get_closest_pos(t_fill *fill, t_play *play);
 void	get_direction(t_play *flay);
 void	init_coord(t_coord *co);
-void	get_first_position(t_fill *, t_play *, char);
 
 #endif
