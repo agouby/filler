@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:03:27 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/15 18:42:40 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 09:44:09 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 
 # define ABS(X) (X < 0 ? -X : X)
 # define BUFF_SIZE 4096
+
+typedef struct	s_boolean
+{
+	unsigned char boo : 1;
+}				t_boolean;
 
 typedef struct	s_list
 {
