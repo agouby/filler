@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:32:41 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 18:33:58 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,33 @@ static void	init_fill_struct(t_fill *fill)
 	fill->piece = NULL;
 	init_coord(&fill->map_s);
 	init_coord(&fill->pie_s);
-	fill->player.m = 0;
-	fill->player.o = 0;
+}
+
+static void	init_player_struct(t_player *player)
+{
+	init_coord(&player->pos);
+	init_coord(&player->first);
+	init_coord(&player->last);
+	init_coord(&player->next);
+	player->c = 0;
 }
 
 static void	init_play_struct(t_play *play)
 {
-	init_coord(&play->pos_o);
-	init_coord(&play->pos_m);
-	init_coord(&play->first_o);
-	init_coord(&play->first_m);
-	init_coord(&play->last_o);
-	init_coord(&play->last_m);
-	init_coord(&play->next_o);
-	init_coord(&play->next_m);
-	ft_bzero(play->dir, 3);
+	init_player_struct(&play->op);
+	init_player_struct(&play->op);
+	ft_memset(play->quart, 0, 3);
+	ft_memset(play->dir, 0, 3);
+	play->help.tmp_dist = 0;
+	play->help.small_dist = 0;
+	init_coord(&play->help.pos_o_saved);
+	init_coord(&play->help.pos_m_saved);
+	init_coord(&play->pie_pos);
+	init_coord(&play->pie_len);
 }
 
-static void	init_help_struct(t_help *help)
-{
-	help->tmp_dist = 0;
-	help->small_dist = 99999999;
-	init_coord(&help->pos_o_saved);
-	init_coord(&help->pos_m_saved);
-}
-
-void		init_structs(t_fill *fill, t_play *play, t_help *help)
+void		init_structs(t_fill *fill, t_play *play)
 {
 	init_fill_struct(fill);
 	init_play_struct(play);
-	init_help_struct(help);
 }

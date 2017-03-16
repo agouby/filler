@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:31:55 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 20:39:16 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,20 @@ void	jump_lines(int fd, char *line, size_t n)
 	}
 }
 
-void	calculate_dist(t_play *play, t_help *help)
+void	end_next_pos(t_player *player)
 {
-	int		vert_dist;
-	int		hori_dist;
+	player->pos.x = -1;
+	player->pos.y = -1;
+}
 
-	vert_dist = ABS((play->pos_m.y - play->pos_o.y));
-	hori_dist = ABS((play->pos_m.x - play->pos_o.x));
-	help->tmp_dist = hori_dist + vert_dist;
-	if (help->tmp_dist <= help->small_dist)
-	{
-		help->small_dist = help->tmp_dist;
-		help->pos_o_saved = play->pos_o;
-		help->pos_m_saved = play->pos_m;
-	}
+void	get_quarter(t_fill *fill, t_play *play)
+{
+	if (play->me.pos.y < (fill->map_s.y / 2))
+		play->quart[1] = 'U';
+	else
+		play->quart[1] = 'D';
+	if (play->me.pos.x < (fill->map_s.x / 2))
+		play->quart[0] = 'L';
+	else
+		play->quart[0] = 'R';
 }
