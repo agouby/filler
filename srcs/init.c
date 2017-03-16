@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 09:54:43 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 11:32:41 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	init_play_struct(t_play *play)
 
 static void	init_help_struct(t_help *help)
 {
-	help->hypo_tmp = 0;
-	help->small_hypo = 99999999;
+	help->tmp_dist = 0;
+	help->small_dist = 99999999;
 	init_coord(&help->pos_o_saved);
 	init_coord(&help->pos_m_saved);
 }

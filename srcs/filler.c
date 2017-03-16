@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:10:53 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 11:34:27 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	filler(void)
 	ft_printf("Op last position : [%d, %d]\n\n", play.last_o.x, play.last_o.y);
 	ft_printf("Direction is : %s\n\n", play.dir);
 	ft_printf("My position : [%d, %d]\n", play.pos_m.x, play.pos_m.y);
-	ft_printf("Op position : [%d, %d]", play.pos_o.x, play.pos_o.y);
+	ft_printf("Op position : [%d, %d]\n\n", play.pos_o.x, play.pos_o.y);
+	ft_printf("Smallest distance : [%d]\n", help.small_dist);
 	del_arrays(&fill);
 }
 

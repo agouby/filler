@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:20:53 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 11:27:40 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef	struct	s_play
 
 typedef	struct	s_help
 {
-	double	hypo_tmp;
-	double	small_hypo;
+	int		tmp_dist;
+	int		small_dist;
 	t_coord	pos_o_saved;
 	t_coord	pos_m_saved;
 }				t_help;
@@ -79,8 +79,8 @@ void	del_arrays(t_fill *fill);
 void	get_closest_pos(t_fill *fill, t_play *play, t_help *help);
 void	get_direction(t_play *flay);
 void	init_coord(t_coord *co);
-void	calculate_hypo(t_play *play, t_help *help);
-void	get_hypo(t_fill *fill, t_play *play, t_help *help);
+void	calculate_dist(t_play *play, t_help *help);
+void	get_dist(t_fill *fill, t_play *play, t_help *help);
 void	get_next_pos_o(t_fill *fill, t_play *play);
 void	get_next_pos_m(t_fill *fill, t_play *play);
 

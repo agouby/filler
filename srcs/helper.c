@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:20:57 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 11:31:55 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	jump_lines(int fd, char *line, size_t n)
 	}
 }
 
-void	calculate_hypo(t_play *play, t_help *help)
+void	calculate_dist(t_play *play, t_help *help)
 {
-	int		ver_angl;
-	int		hor_angl;
+	int		vert_dist;
+	int		hori_dist;
 
-	ver_angl = ABS((play->pos_m.y - play->pos_o.y));
-	hor_angl = ABS((play->pos_m.x - play->pos_o.x));
-	help->hypo_tmp = sqrt(ft_pow(ver_angl, 2) + ft_pow(hor_angl, 2));
-	if (help->hypo_tmp <= help->small_hypo)
+	vert_dist = ABS((play->pos_m.y - play->pos_o.y));
+	hori_dist = ABS((play->pos_m.x - play->pos_o.x));
+	help->tmp_dist = hori_dist + vert_dist;
+	if (help->tmp_dist <= help->small_dist)
 	{
-		help->small_hypo = help->hypo_tmp;
+		help->small_dist = help->tmp_dist;
 		help->pos_o_saved = play->pos_o;
 		help->pos_m_saved = play->pos_m;
 	}

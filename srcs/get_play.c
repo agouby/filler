@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 07:49:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 11:12:11 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/16 11:27:51 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	get_closest_pos(t_fill *fill, t_play *play, t_help *help)
 	get_first_pos(fill, play, fill->player.o);
 	get_last_pos(fill, play, fill->player.m);
 	get_last_pos(fill, play, fill->player.o);
-	get_hypo(fill, play, help);
+	get_dist(fill, play, help);
 	play->pos_o = help->pos_o_saved;
 	play->pos_m = help->pos_m_saved;
 }
