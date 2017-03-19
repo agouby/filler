@@ -45,7 +45,7 @@ static void	init_play_struct(t_play *play)
 	init_player_struct(&play->me);
 	ft_memset(play->dir, 0, 3);
 	play->help.tmp_dist = 0;
-	play->help.small_dist = 0;
+	play->help.next_dist = 0;
 	init_coord(&play->help.pos_o_saved);
 	init_coord(&play->help.pos_m_saved);
 	init_coord(&play->pie_pos);

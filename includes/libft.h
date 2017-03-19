@@ -132,5 +132,7 @@ t_list			*ft_lstrev(t_list *lst);
 t_split			ft_getwords(char const *str, size_t start, int c);
 size_t			ft_countwords(char *str, int c);
 int				get_next_line(const int fd, char **line);
+void			ft_swapi(int *a, int *b);
+void			ft_swap_tab(int **a, int **b);
 
 #endif

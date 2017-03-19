@@ -20,12 +20,6 @@ void	calculate_dist(t_play *play)
 	vert_dist = ABS((play->me.pos.y - play->op.pos.y));
 	hori_dist = ABS((play->me.pos.x - play->op.pos.x));
 	play->help.tmp_dist = hori_dist + vert_dist;
-	if (play->help.tmp_dist <= play->help.small_dist)
-	{
-		play->help.small_dist = play->help.tmp_dist;
-		play->help.pos_o_saved = play->op.pos;
-		play->help.pos_m_saved = play->me.pos;
-	}
 }
 
 void	change_and_count(t_fill *fill, char **line)
@@ -33,48 +27,80 @@ void	change_and_count(t_fill *fill, char **line)
 	size_t i;
 
 	i = 0;
-	while (line[0][i])
+	while ((*line)[i])
 	{
-		if (line[0][i] == 'X' || line[0][i] == 'x')
+		if ((*line)[i] == 'X' || (*line)[i] == 'x')
 		{
-			line[0][i] = ft_toupper(line[0][i]);
 			fill->xc++;
+			(*line)[i] = ft_toupper((*line)[i]);
 		}
-		else if (line[0][i] == 'O' || line[0][i] == 'o')
+		else if ((*line)[i] == 'O' || (*line)[i] == 'o')
 		{
-			line[0][i] = ft_toupper(line[0][i]);
 			fill->oc++;
+			(*line)[i] = ft_toupper((*line)[i]);
 		}
 		i++;
 	}
 }
 
-int	*store_all_dist(t_fill *fill, t_play *play)
+void	swap_tab(int **a, int **b)
 {
-	fill->d_tab[0] = (int *)malloc(sizeof(int) * 80);
-	fill->d_tab[0][0] = play->help.tmp_dist;
-	fill->d_tab[0][1] = play->me.pos.y;
-//	*(fill->d_tab)[2] = play->me.pos.x;
-//	*(fill->d_tab)[3] = play->op.pos.y;
-//	*(fill->d_tab)[4] = play->op.pos.x;
-	ft_printf("lol");
-//	(void)play;
-	return (*fill->d_tab);
+	int *tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void	sort_tab(t_fill *fill)
+{	
+	int i = 0;
+	int x = fill->oc * fill->xc;
+
+	while (i < x - 1)
+	{
+		if (fill->d_tab[i][0] > fill->d_tab[i + 1][0])
+		{
+			swap_tab(&fill->d_tab[i], &fill->d_tab[i + 1]);
+			i = 0;
+		}
+		else
+			i++;
+	}
+}
+
+void	print_dist(t_fill *fill)
+{
+	size_t i = 0;
+	size_t nb_pos;
+       
+	nb_pos = fill->oc * fill->xc;
+	while (i < nb_pos)
+	{
+		ft_printf("Dist = %d, me [%d, %d], op [%d, %d]\n", fill->d_tab[i][0], fill->d_tab[i][1], fill->d_tab[i][2], fill->d_tab[i][3], fill->d_tab[i][4]);
+		i++;
+	}
+}
+
+void	store_all_dist(t_fill *fill, t_play *play)
+{
+	*fill->d_tab = (int *)malloc(sizeof(int) * 5);
+	(*fill->d_tab)[0] = play->help.tmp_dist;
+	(*fill->d_tab)[1] = play->me.pos.y;
+	(*fill->d_tab)[2] = play->me.pos.x;
+	(*fill->d_tab)[3] = play->op.pos.y;
+	(*fill->d_tab)[4] = play->op.pos.x;
+	fill->d_tab++;
 }
 
 void	get_dist(t_fill *fill, t_play *play)
 {
-	int	n;
-	int i;
+	size_t	nb_pos;
 
-	i = 0;
-	n = fill->oc * fill->xc;
-	if (!(fill->d_tab = (int **)malloc(sizeof(int *) * (n))))
+	nb_pos = fill->oc * fill->xc;
+	if (!(fill->d_tab = (int **)malloc(sizeof(int *) * nb_pos)))
 		ft_print_error("Memory allocation failed.");
 	play->op.pos = play->op.first;
-	play->help.pos_o_saved = play->op.pos;
-	play->help.pos_m_saved = play->me.pos;
-	play->help.small_dist = fill->map_s.x + fill->map_s.y;
 	while (play->op.pos.y != -1 || play->op.pos.x != -1)
 	{
 		play->me.pos.x = play->me.first.x;
@@ -82,10 +108,12 @@ void	get_dist(t_fill *fill, t_play *play)
 		while (play->me.pos.y != -1 || play->me.pos.x != -1)
 		{
 			calculate_dist(play);
-			fill->d_tab[i] = store_all_dist(fill, play);
-			i++;
+			store_all_dist(fill, play);
 			get_next_pos(fill, &play->me);
 		}
 		get_next_pos(fill, &play->op);
 	}
+	fill->d_tab -= nb_pos;
+	sort_tab(fill);
+	
 }

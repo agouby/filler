@@ -32,7 +32,6 @@ void	end_next_pos(t_player *player)
 
 void	get_quarter(t_fill *fill, t_player *player)
 {
-	ft_printf("%d	%d\n", player->pos.x, fill->map_s.x);
 	if (player->pos.x < (fill->map_s.x / 2))
 		player->quart[0] = 'L';
 	else

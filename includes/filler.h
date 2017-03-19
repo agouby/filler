@@ -51,7 +51,7 @@ typedef struct	s_fill
 typedef	struct	s_help
 {
 	int		tmp_dist;
-	int		small_dist;
+	int		next_dist;
 	t_coord	pos_o_saved;
 	t_coord	pos_m_saved;
 }				t_help;
@@ -86,5 +86,11 @@ void			end_next_pos(t_player *player);
 void			get_piece(t_fill *fill, t_play *play);
 void			get_quarter(t_fill *fill, t_player *player);
 void			change_and_count(t_fill *fill, char **line);
+
+/*
+**	TO DELETE 
+*/
+
+void			print_dist(t_fill *fill);
 
 #endif

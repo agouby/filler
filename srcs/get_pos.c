@@ -81,6 +81,14 @@ void	get_next_pos(t_fill *fill, t_player *plyr)
 	}
 }
 
+void	get_next_dist(t_fill *fill, t_play *play)
+{
+	play->me.pos.y = fill->d_tab[play->help.next_dist][1];
+	play->me.pos.x = fill->d_tab[play->help.next_dist][2];
+	play->op.pos.y = fill->d_tab[play->help.next_dist][3];
+	play->op.pos.x = fill->d_tab[play->help.next_dist][4];
+}
+
 void	get_closest_pos(t_fill *fill, t_play *play)
 {
 	get_first_pos(fill, play, play->me.c);
@@ -88,6 +96,5 @@ void	get_closest_pos(t_fill *fill, t_play *play)
 	get_last_pos(fill, play, play->me.c);
 	get_last_pos(fill, play, play->op.c);
 	get_dist(fill, play);
-	play->op.pos = play->help.pos_o_saved;
-	play->me.pos = play->help.pos_m_saved;
+	get_next_dist(fill, play);
 }

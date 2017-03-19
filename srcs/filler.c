@@ -31,7 +31,6 @@ void	filler(void)
 	get_piece(&fill, &play);
 	print_map(fill.map);
 	print_piece(fill.piece);
-	ft_printf("\n");
 //	ft_printf("Me : %c\nOp : %c\n\n", play.me.c, play.op.c);
 //	ft_printf("My first position : [%d, %d]\n", play.me.first.x, play.me.first.y);
 //	ft_printf("Op first position : [%d, %d]\n\n", play.op.first.x, play.op.first.y);
@@ -45,7 +44,8 @@ void	filler(void)
 //	ft_printf("He is in the quarter : %s\n", play.op.quart);
 //	ft_printf("Piece pos is : [%d, %d]\n", play.pie_pos.y, play.pie_pos.x);
 //	ft_printf("Piece len is : [%d, %d]\n", play.pie_len.y, play.pie_len.x);
-	ft_printf("nb X = %d, nb O = %d\n", fill.xc, fill.oc);
+//	ft_printf("nb X = %d, nb O = %d\n", fill.xc, fill.oc);
+	print_dist(&fill);
 	del_arrays(&fill);
 }
 

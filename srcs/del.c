@@ -24,4 +24,8 @@ void	del_arrays(t_fill *fill)
 	while (i < fill->pie_s.y)
 		free(fill->piece[i++]);
 	free(fill->piece);
+	i = 0;
+	while (i < fill->xc * fill->oc)
+		free(fill->d_tab[i++]);
+	free(fill->d_tab);
 }
