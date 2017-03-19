@@ -22,6 +22,9 @@ static void	init_fill_struct(t_fill *fill)
 {
 	fill->map = NULL;
 	fill->piece = NULL;
+	fill->oc = 0;
+	fill->xc = 0;
+	fill->d_tab = NULL;
 	init_coord(&fill->map_s);
 	init_coord(&fill->pie_s);
 }
@@ -32,14 +35,14 @@ static void	init_player_struct(t_player *player)
 	init_coord(&player->first);
 	init_coord(&player->last);
 	init_coord(&player->next);
+	ft_memset(player->quart, 0, 3);
 	player->c = 0;
 }
 
 static void	init_play_struct(t_play *play)
 {
 	init_player_struct(&play->op);
-	init_player_struct(&play->op);
-	ft_memset(play->quart, 0, 3);
+	init_player_struct(&play->me);
 	ft_memset(play->dir, 0, 3);
 	play->help.tmp_dist = 0;
 	play->help.small_dist = 0;

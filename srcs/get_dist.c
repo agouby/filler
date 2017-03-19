@@ -28,8 +28,49 @@ void	calculate_dist(t_play *play)
 	}
 }
 
+void	change_and_count(t_fill *fill, char **line)
+{
+	size_t i;
+
+	i = 0;
+	while (line[0][i])
+	{
+		if (line[0][i] == 'X' || line[0][i] == 'x')
+		{
+			line[0][i] = ft_toupper(line[0][i]);
+			fill->xc++;
+		}
+		else if (line[0][i] == 'O' || line[0][i] == 'o')
+		{
+			line[0][i] = ft_toupper(line[0][i]);
+			fill->oc++;
+		}
+		i++;
+	}
+}
+
+int	*store_all_dist(t_fill *fill, t_play *play)
+{
+	fill->d_tab[0] = (int *)malloc(sizeof(int) * 80);
+	fill->d_tab[0][0] = play->help.tmp_dist;
+	fill->d_tab[0][1] = play->me.pos.y;
+//	*(fill->d_tab)[2] = play->me.pos.x;
+//	*(fill->d_tab)[3] = play->op.pos.y;
+//	*(fill->d_tab)[4] = play->op.pos.x;
+	ft_printf("lol");
+//	(void)play;
+	return (*fill->d_tab);
+}
+
 void	get_dist(t_fill *fill, t_play *play)
 {
+	int	n;
+	int i;
+
+	i = 0;
+	n = fill->oc * fill->xc;
+	if (!(fill->d_tab = (int **)malloc(sizeof(int *) * (n))))
+		ft_print_error("Memory allocation failed.");
 	play->op.pos = play->op.first;
 	play->help.pos_o_saved = play->op.pos;
 	play->help.pos_m_saved = play->me.pos;
@@ -41,6 +82,8 @@ void	get_dist(t_fill *fill, t_play *play)
 		while (play->me.pos.y != -1 || play->me.pos.x != -1)
 		{
 			calculate_dist(play);
+			fill->d_tab[i] = store_all_dist(fill, play);
+			i++;
 			get_next_pos(fill, &play->me);
 		}
 		get_next_pos(fill, &play->op);

@@ -23,7 +23,8 @@ OBJ = ${SRC:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@ar rcus $(NAME) $(OBJ)
+		@ar rc $(NAME) $(OBJ)
+		@ranlib $(NAME)
 			@echo "created $(NAME)"
 
 %.o: %.c	

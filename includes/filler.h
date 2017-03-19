@@ -30,6 +30,7 @@ typedef	struct	s_coord
 typedef struct	s_player
 {
 	char	c;
+	char	quart[3];
 	t_coord	pos;
 	t_coord	first;
 	t_coord	last;
@@ -39,6 +40,9 @@ typedef struct	s_player
 typedef struct	s_fill
 {
 	char		**map;
+	int		**d_tab;
+	int		oc;
+	int		xc;
 	t_coord		map_s;
 	t_coord		pie_s;
 	char		**piece;
@@ -60,7 +64,6 @@ typedef	struct	s_play
 	t_coord		pie_len;
 	t_help		help;
 	char		dir[3];
-	char		quart[3];
 }				t_play;
 
 void			filler(void);
@@ -81,6 +84,7 @@ void			get_dist(t_fill *fill, t_play *play);
 void			get_next_pos(t_fill *fill, t_player *player);
 void			end_next_pos(t_player *player);
 void			get_piece(t_fill *fill, t_play *play);
-void			get_quarter(t_fill *fill, t_play *play);
+void			get_quarter(t_fill *fill, t_player *player);
+void			change_and_count(t_fill *fill, char **line);
 
 #endif

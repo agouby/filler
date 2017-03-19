@@ -47,10 +47,7 @@ void	create_map(int fd, t_fill *fill)
 	if (!(fill->map = (char **)malloc(sizeof(char *) * (fill->map_s.y + 1))))
 		ft_print_error("Memory allocation failed.");
 	while (i < fill->map_s.y && get_next_line(fd, &fill->map[i]))
-	{
-		fill->map[i] = ft_strtoupper(fill->map[i]);
-		i++;
-	}
+		change_and_count(fill, &fill->map[i++]);
 	fill->map[fill->map_s.y] = NULL;
 }
 

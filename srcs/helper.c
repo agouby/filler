@@ -30,14 +30,15 @@ void	end_next_pos(t_player *player)
 	player->pos.y = -1;
 }
 
-void	get_quarter(t_fill *fill, t_play *play)
+void	get_quarter(t_fill *fill, t_player *player)
 {
-	if (play->me.pos.y < (fill->map_s.y / 2))
-		play->quart[1] = 'U';
+	ft_printf("%d	%d\n", player->pos.x, fill->map_s.x);
+	if (player->pos.x < (fill->map_s.x / 2))
+		player->quart[0] = 'L';
 	else
-		play->quart[1] = 'D';
-	if (play->me.pos.x < (fill->map_s.x / 2))
-		play->quart[0] = 'L';
+		player->quart[0] = 'R';
+	if (player->pos.y < (fill->map_s.y / 2))
+		player->quart[1] = 'U';
 	else
-		play->quart[0] = 'R';
+		player->quart[1] = 'D';
 }

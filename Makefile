@@ -13,7 +13,7 @@
 NAME = players/agouby.filler
 CC = gcc
 INC = -I./includes
-SRC =  $(shell find ./srcs | grep "\.c")
+SRC =  $(shell find ./srcs | grep "\.c" | grep -v "\.c.swp")
 
 OBJ = $(SRC:%.c=%.o)
 FLAGS = -g -Wall -Werror -Wextra
