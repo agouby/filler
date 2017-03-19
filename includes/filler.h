@@ -43,6 +43,7 @@ typedef struct	s_fill
 	int		**d_tab;
 	int		oc;
 	int		xc;
+	int		nb_pos;
 	t_coord		map_s;
 	t_coord		pie_s;
 	char		**piece;
@@ -86,6 +87,7 @@ void			end_next_pos(t_player *player);
 void			get_piece(t_fill *fill, t_play *play);
 void			get_quarter(t_fill *fill, t_player *player);
 void			change_and_count(t_fill *fill, char **line);
+int			is_overlap(t_fill *fill, t_play *play);
 
 /*
 **	TO DELETE 

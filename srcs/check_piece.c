@@ -76,6 +76,8 @@ void	print_piece_map(t_fill *fill, t_play *p)
 	t_coord i;
 
 	i.y = 0;
+	if (is_overlap(fill, p))
+		ft_print_error("Overlap retard <333");
 	while (i.y < fill->pie_s.y)
 	{
 		i.x = 0;
@@ -88,6 +90,25 @@ void	print_piece_map(t_fill *fill, t_play *p)
 		i.y++;
 	}
 	fill->map[p->me.pos.y][p->me.pos.x + 4] = p->me.c;
+}
+
+int	is_overlap(t_fill *f, t_play *p)
+{
+	t_coord i;
+
+	i.y = 0;
+	while (i.y < f->pie_s.y)
+	{
+		i.x = 0;
+		while (i.x < f->pie_s.x)
+		{
+			if (f->piece[i.y][i.x] == '*' && f->map[p->pie_pos.y][p->pie_pos.x] != '.')
+					return (1);
+			i.x++;
+		}
+		i.y++;
+	}
+	return (0);
 }
 
 void	get_piece(t_fill *fill, t_play *play)

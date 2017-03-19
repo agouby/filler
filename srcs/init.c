@@ -24,6 +24,7 @@ static void	init_fill_struct(t_fill *fill)
 	fill->piece = NULL;
 	fill->oc = 0;
 	fill->xc = 0;
+	fill->nb_pos = 0;
 	fill->d_tab = NULL;
 	init_coord(&fill->map_s);
 	init_coord(&fill->pie_s);
