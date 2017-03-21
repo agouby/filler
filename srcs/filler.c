@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 19:00:03 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/21 13:40:04 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void	filler(void)
 {
 	int		fd;
+	int		fd_vis;
 	t_fill	fill;
 	t_play	play;
 
 	if ((fd = open("test/map00", O_RDONLY)) == -1)
 		ft_print_error("Open failed.");
+	if ((fd_vis = open("visual.cfg", O_RDWR)) == -1)
+		ft_print_error("Open failed.");
 	init_structs(&fill, &play);
-	store_infos(fd, &fill, &play);
+	store_infos(fd, fd_vis, &fill, &play);
 	get_closest_pos(&fill, &play);
 	fill.map[play.op.pos.y][play.op.pos.x + 4] = ft_tolower(play.op.c);
 	fill.map[play.me.pos.y][play.me.pos.x + 4] = ft_tolower(play.me.c);
@@ -45,7 +48,7 @@ void	filler(void)
 //	ft_printf("Piece pos is : [%d, %d]\n", play.pie_pos.y, play.pie_pos.x);
 //	ft_printf("Piece len is : [%d, %d]\n", play.pie_len.y, play.pie_len.x);
 //	ft_printf("nb X = %d, nb O = %d\n", fill.xc, fill.oc);
-	print_dist(&fill);
+//	print_dist(&fill);
 	del_arrays(&fill);
 }
 

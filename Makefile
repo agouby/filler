@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/16 13:43:12 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/21 13:25:12 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ) includes/filler.h
 	rm -rf srcs/*.c.swp
+	rm -rf visual.cfg
+	touch visual.cfg
 	make -C lib
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L./lib -lftprintf
 
@@ -34,6 +36,7 @@ clean:
 	make clean -C lib
 
 fclean: clean
+	rm -rf visual.cfg
 	rm -rf srcs/*.c.swp
 	rm -f $(NAME)
 	make fclean -C lib

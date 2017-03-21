@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 15:06:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 20:38:58 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/21 16:32:05 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,15 @@ void	print_piece_map(t_fill *fill, t_play *p)
 	t_coord i;
 
 	i.y = 0;
-	if (is_overlap(fill, p))
-		ft_print_error("Overlap retard <333");
+	while (is_overlap(fill, p) && p->help.next_dist < fill->nb_pos)
+	{
+		get_next_dist(fill, p);
+		ft_printf("y = %d, x = %d\n", p->me.pos.y, p->me.pos.x);
+		get_pos_piece(fill, p);
+		i.y++;
+	}
+	ft_printf("i.y = %d\n", i.y++);
+	i.y = 0;
 	while (i.y < fill->pie_s.y)
 	{
 		i.x = 0;
@@ -102,8 +109,8 @@ int	is_overlap(t_fill *f, t_play *p)
 		i.x = 0;
 		while (i.x < f->pie_s.x)
 		{
-			if (f->piece[i.y][i.x] == '*' && f->map[p->pie_pos.y][p->pie_pos.x] != '.')
-					return (1);
+			if (f->piece[i.y][i.x] == '*' && f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] != '.')
+				return (1);
 			i.x++;
 		}
 		i.y++;

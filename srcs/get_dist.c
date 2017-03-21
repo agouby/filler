@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 20:26:59 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 16:48:15 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/21 15:51:34 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	swap_tab(int **a, int **b)
 
 void	sort_tab(t_fill *fill)
 {	
-	int i = 0;
-	int x = fill->oc * fill->xc;
+	int i;
 
-	while (i < x - 1)
+	i = 0;
+	while (i < fill->nb_pos - 1)
 	{
 		if (fill->d_tab[i][0] > fill->d_tab[i + 1][0])
 		{
@@ -71,11 +71,10 @@ void	sort_tab(t_fill *fill)
 
 void	print_dist(t_fill *fill)
 {
-	size_t i = 0;
-	size_t nb_pos;
-       
-	nb_pos = fill->oc * fill->xc;
-	while (i < nb_pos)
+	int i;
+
+	i = 0;
+	while (i < fill->nb_pos)
 	{
 		ft_printf("Dist = %d, me [%d, %d], op [%d, %d]\n", fill->d_tab[i][0], fill->d_tab[i][1], fill->d_tab[i][2], fill->d_tab[i][3], fill->d_tab[i][4]);
 		i++;
@@ -95,10 +94,8 @@ void	store_all_dist(t_fill *fill, t_play *play)
 
 void	get_dist(t_fill *fill, t_play *play)
 {
-	size_t	nb_pos;
-
-	nb_pos = fill->oc * fill->xc;
-	if (!(fill->d_tab = (int **)malloc(sizeof(int *) * nb_pos)))
+	fill->nb_pos = fill->oc * fill->xc;
+	if (!(fill->d_tab = (int **)malloc(sizeof(int *) * fill->nb_pos)))
 		ft_print_error("Memory allocation failed.");
 	play->op.pos = play->op.first;
 	while (play->op.pos.y != -1 || play->op.pos.x != -1)
@@ -113,7 +110,7 @@ void	get_dist(t_fill *fill, t_play *play)
 		}
 		get_next_pos(fill, &play->op);
 	}
-	fill->d_tab -= nb_pos;
+	fill->d_tab -= fill->nb_pos;
 	sort_tab(fill);
-	
+
 }
