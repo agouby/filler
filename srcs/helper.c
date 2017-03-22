@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/21 15:45:37 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 19:41:56 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,31 @@ void	get_quarter(t_fill *fill, t_player *player)
 		player->quart[1] = 'U';
 	else
 		player->quart[1] = 'D';
+}
+
+int		is_overlap(t_fill *f, t_play *p)
+{
+	t_coord i;
+	int		count;
+
+	count = 0;
+	i.y = 0;
+	while (i.y < f->pie_s.y)
+	{
+		i.x = 0;
+		while (i.x < f->pie_s.x)
+		{
+			if (f->piece[i.y][i.x] == '*')
+			{
+				if (i.y + p->pie_pos.y >= f->map_s.y
+						|| i.x + p->pie_pos.x >= f->map_s.x)
+					count++;
+				else if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] != '.')
+					count++;
+			}
+			i.x++;
+		}
+		i.y++;
+	}
+	return (count - 1);
 }

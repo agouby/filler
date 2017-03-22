@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   change.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 20:15:20 by agouby            #+#    #+#             */
-/*   Updated: 2016/11/14 13:07:47 by agouby           ###   ########.fr       */
+/*   Created: 2017/03/22 12:42:04 by agouby            #+#    #+#             */
+/*   Updated: 2017/03/22 12:42:22 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "filler.h"
 
-void	ft_putstr_fd(char const *str, int fd)
+void	change_dir(t_play *play)
 {
-	write(fd, str, ft_strlen(str));
+	if (play->dir[1] == '-')
+	{
+		if (play->me.quart[1] == 'U')
+			play->dir[1] = 'D';
+		else if (play->me.quart[1] == 'D')
+			play->dir[1] = 'U';
+	}
+	else if (play->dir[0] == '-')
+	{
+		if (play->me.quart[0] == 'L')
+			play->dir[0] = 'R';
+		else if (play->me.quart[0] == 'R')
+			play->dir[0] = 'L';
+	}
 }

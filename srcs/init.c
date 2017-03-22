@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 18:33:58 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 18:25:38 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	init_player_struct(t_player *player)
 	init_coord(&player->last);
 	init_coord(&player->next);
 	ft_memset(player->quart, 0, 3);
-	player->c = 0;
 }
 
 static void	init_play_struct(t_play *play)

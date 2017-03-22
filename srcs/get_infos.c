@@ -6,33 +6,27 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/21 15:48:40 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 21:42:22 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	get_player(int fd, char *line, t_play *play)
+
+#include <stdio.h>
+
+void	get_player(int fd, t_play *play)
 {
-	jump_lines(fd, line, 6);
+	char *line;
+
 	get_next_line(fd, &line);
-	if (ft_strstr(line, "agouby") && line[10] == '1')
-	{
-		ft_strdel(&line);
-		play->me.c = 'O';
-		play->op.c = 'X';
-	}
-	else
-	{
-		ft_strdel(&line);
-		play->op.c = 'O';
-		play->me.c = 'X';
-	}
+	play->me.c = (line[10] == '1') ? 'O' : 'X';
+	play->op.c = (play->me.c == 'O') ? 'X' : 'O';
+	ft_strdel(&line);
 }
 
 void	get_size(int fd, char *line, t_fill *fill)
 {
-	jump_lines(fd, line, 2);
 	get_next_line(fd, &line);
 	fill->map_s.y = ft_atoi(line + 8);
 	fill->map_s.x = ft_atoi(line + 8 + ft_count_digit(fill->map_s.y, 10));
@@ -42,15 +36,19 @@ void	get_size(int fd, char *line, t_fill *fill)
 void	create_map(int fd, int fd_vis, t_fill *fill)
 {
 	int	i;
+	static int n = 0;
 
 	i = 0;
 	if (!(fill->map = (char **)malloc(sizeof(char *) * (fill->map_s.y + 1))))
 		ft_print_error("Memory allocation failed.");
 	while (i < fill->map_s.y && get_next_line(fd, &fill->map[i]))
 	{
-		change_and_count(fill, &fill->map[i]);
-		ft_dprintf(fd_vis, "%s\n", fill->map[i++]);
+		if (n++ == 0)
+			ft_dprintf(fd_vis, "%d\n%d\n", fill->map_s.y, fill->map_s.x);
+		ft_dprintf(fd_vis, "%s\n", fill->map[i]);
+		count_pos(fill, &fill->map[i++]);
 	}
+	ft_dprintf(fd_vis, "\n");
 	fill->map[fill->map_s.y] = NULL;
 }
 
@@ -70,12 +68,11 @@ void	create_pie(int fd, char *line, t_fill *fill)
 	fill->piece[fill->pie_s.y] = NULL;
 }
 
-void	store_infos(int fd, int fd_vis, t_fill *fill, t_play *play)
+void	store_infos(int fd, int fd_vis, t_fill *fill)
 {
 	char	*line;
 
 	line = NULL;
-	get_player(fd, line, play);
 	get_size(fd, line, fill);
 	jump_lines(fd, line, 1);
 	create_map(fd, fd_vis, fill);

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   get_count.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 21:02:56 by agouby            #+#    #+#             */
-/*   Updated: 2016/11/14 13:09:02 by agouby           ###   ########.fr       */
+/*   Created: 2017/03/22 12:30:30 by agouby            #+#    #+#             */
+/*   Updated: 2017/03/22 21:41:54 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "filler.h"
 
-void	ft_putstr(char const *str)
+void	count_pos(t_fill *fill, char **line)
 {
-	ft_putstr_fd(str, 1);
+	size_t i;
+
+	i = 0;
+	while ((*line)[i])
+	{
+		if ((*line)[i] == 'X' || (*line)[i] == 'x')
+			fill->xc++;
+		else if ((*line)[i] == 'O' || (*line)[i] == 'o')
+			fill->oc++;
+		i++;
+	}
 }

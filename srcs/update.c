@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 21:17:02 by agouby            #+#    #+#             */
-/*   Updated: 2016/11/14 13:07:08 by agouby           ###   ########.fr       */
+/*   Created: 2017/03/22 12:24:10 by agouby            #+#    #+#             */
+/*   Updated: 2017/03/22 12:25:26 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "filler.h"
 
-void	ft_putendl_fd(char const *str, int fd)
+void	update_dir(t_fill *fill, t_play *play)
 {
-	ft_putstr_fd(str, fd);
-	ft_putchar_fd('\n', fd);
+	get_direction(play);
+	get_quarter(fill, &play->me);
+	get_quarter(fill, &play->op);
+	change_dir(play);
 }

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 20:26:59 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/21 15:51:34 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 19:03:35 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,8 @@ void	calculate_dist(t_play *play)
 	play->help.tmp_dist = hori_dist + vert_dist;
 }
 
-void	change_and_count(t_fill *fill, char **line)
-{
-	size_t i;
-
-	i = 0;
-	while ((*line)[i])
-	{
-		if ((*line)[i] == 'X' || (*line)[i] == 'x')
-		{
-			fill->xc++;
-			(*line)[i] = ft_toupper((*line)[i]);
-		}
-		else if ((*line)[i] == 'O' || (*line)[i] == 'o')
-		{
-			fill->oc++;
-			(*line)[i] = ft_toupper((*line)[i]);
-		}
-		i++;
-	}
-}
-
-void	swap_tab(int **a, int **b)
-{
-	int *tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
 void	sort_tab(t_fill *fill)
-{	
+{
 	int i;
 
 	i = 0;
@@ -61,23 +31,11 @@ void	sort_tab(t_fill *fill)
 	{
 		if (fill->d_tab[i][0] > fill->d_tab[i + 1][0])
 		{
-			swap_tab(&fill->d_tab[i], &fill->d_tab[i + 1]);
+			ft_swap_tab(&fill->d_tab[i], &fill->d_tab[i + 1]);
 			i = 0;
 		}
 		else
 			i++;
-	}
-}
-
-void	print_dist(t_fill *fill)
-{
-	int i;
-
-	i = 0;
-	while (i < fill->nb_pos)
-	{
-		ft_printf("Dist = %d, me [%d, %d], op [%d, %d]\n", fill->d_tab[i][0], fill->d_tab[i][1], fill->d_tab[i][2], fill->d_tab[i][3], fill->d_tab[i][4]);
-		i++;
 	}
 }
 
@@ -112,5 +70,4 @@ void	get_dist(t_fill *fill, t_play *play)
 	}
 	fill->d_tab -= fill->nb_pos;
 	sort_tab(fill);
-
 }

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/21 13:49:17 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 21:41:13 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct	s_player
 typedef struct	s_fill
 {
 	char		**map;
-	int		**d_tab;
-	int		oc;
-	int		xc;
-	int		nb_pos;
+	int			**d_tab;
+	int			oc;
+	int			xc;
+	int			nb_pos;
 	t_coord		map_s;
 	t_coord		pie_s;
 	char		**piece;
@@ -71,10 +71,10 @@ void			filler(void);
 void			init_structs(t_fill *fill, t_play *play);
 void			print_map(char **map);
 void			print_piece(char **piece);
-void			get_player(int fd, char *line, t_play *play);
+void			get_player(int fd, t_play *play);
 void			get_size(int fd, char *line, t_fill *fill);
 void			create_map(int fd, int fd_vis, t_fill *fill);
-void			store_infos(int fd, int fd_vis, t_fill *fill, t_play *play);
+void			store_infos(int fd, int fd_vis, t_fill *fill);
 void			jump_lines(int fd, char *line, size_t i);
 void			create_piece(int fd, char *line, t_fill *fill);
 void			del_arrays(t_fill *fill);
@@ -86,13 +86,17 @@ void			get_next_pos(t_fill *fill, t_player *player);
 void			end_next_pos(t_player *player);
 void			get_piece(t_fill *fill, t_play *play);
 void			get_quarter(t_fill *fill, t_player *player);
-void			change_and_count(t_fill *fill, char **line);
+void			count_pos(t_fill *fill, char **line);
 int				is_overlap(t_fill *fill, t_play *play);
 void			get_next_dist(t_fill *fill, t_play *play);
 void			store_all_dist(t_fill *fill, t_play *play);
+void			update_dir(t_fill *fill, t_play *play);
+void			change_dir(t_play *play);
+void			chk_dir_u(t_fill *f, t_play *p, char *(*ft)(const char *, int));
+void			chk_dir_d(t_fill *f, t_play *p, char *(*ft)(const char *, int));
 
 /*
-**	TO DELETE 
+**	TO DELETE
 */
 
 void			print_dist(t_fill *fill);

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:03:27 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 09:44:09 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/22 14:16:04 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include <string.h>
 
 # define ABS(X) (X < 0 ? -X : X)
-# define BUFF_SIZE 4096
+# define BUFF_SIZE 200
 
+/*
 typedef struct	s_boolean
 {
 	unsigned char boo : 1;
 }				t_boolean;
-
+*/
 typedef struct	s_list
 {
 	void			*content;
@@ -45,7 +46,6 @@ char			*ft_strnjoin(char const *s1, char const *s2, int s, int e);
 char			*ft_strnjoin_del(char const *s1, char const *s2, int s, int e);
 void			ft_tab_del(char **tab);
 double			ft_deg_to_rad(int deg);
-void			ft_putnbrendl(int n);
 size_t			ft_lstlen(t_list *lst);
 size_t			ft_tablen(char **tab);
 void			ft_print_error(char *str);
@@ -84,15 +84,6 @@ int				ft_isupper(int c);
 char			*ft_strstr(const char *big, const char *little);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
 void			ft_swapc(char const *a, char const *b);
-void			ft_putchar(char c);
-void			ft_putchar_fd(char c, int fd);
-void			ft_putstr(char const *str);
-void			ft_putnstr(char const *str, int n);
-void			ft_putstr_fd(char const *str, int fd);
-void			ft_putnstr_fd(char const *str, int n, int fd);
-void			ft_putendl(char const *str);
-void			ft_putendl_fd(char const *str, int fd);
-void			ft_putnbr_fd(int n, int fd);
 void			*ft_memalloc(size_t size);
 char			*ft_strnew(size_t size);
 char			*ft_itoa_base(long long n, int base);
@@ -115,7 +106,6 @@ int				*ft_range(int min, int max);
 void			ft_swaps(char **a, char **b);
 char			**ft_sorts(char **s, size_t start, size_t len);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
-void			ft_putnbr(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strmap(char const *s, char (*f)(char));
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
