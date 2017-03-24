@@ -25,11 +25,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ_fil) $(OBJ_vis) includes/filler.h includes/visual.h
 	rm -rf srcs/*.c.swp
-	rm -rf visual.txt
-	touch visual.txt
+#	rm -rf visual.txt
+#	touch visual.txt
 	make -C lib
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ_fil) -L./lib -lftprintf
-	$(CC) $(FLAGS) -o visual.fx $(OBJ_vis) -L./lib -lftprintf -lmlx -framework AppKit -framework OpenGL
+	$(CC) $(FLAGS) -o visual.fx $(OBJ_vis) -L./lib -lftprintf -L./minilibx11 -lmlx -lX11 -lXext
 
 %.o: %.c
 	gcc $(FLAGS) $(INC)  -c $< -o $@
@@ -41,6 +41,9 @@ clean:
 fclean: clean
 	rm -rf visual.cfg
 	rm -rf srcs/*.c.swp
+	rm -rf visual/*.o
+	rm -rf visual.fx
+	rm -rf srcs/*.o
 	rm -f $(NAME)
 	make fclean -C lib
 re: fclean all

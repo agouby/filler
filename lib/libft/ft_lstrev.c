@@ -18,7 +18,7 @@ t_list	*ft_lstrev(t_list *lst)
 	t_list	*elem;
 
 	new = NULL;
-	while (lst->next)
+	while (lst)
 	{
 		elem = lst;
 		lst = lst->next;
