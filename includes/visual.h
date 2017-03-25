@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 20:51:05 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 22:25:16 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/24 17:46:46 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include "ft_printf.h"
 # include "fcntl.h"
 # include "filler.h"
-# include "../minilibx11/mlx.h"
+# include <mlx.h>
 
 # define WIDTH	1000
 # define HEIGHT 1000
 # define ESC_M	53
 # define ESC_L	65307
 # define SP_L	32
+# define SP_M	49
 
 typedef struct	s_v
 {

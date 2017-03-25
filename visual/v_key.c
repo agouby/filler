@@ -2,7 +2,7 @@
 
 int		key_hook(int key, t_v *v)
 {
-	if (key == ESC_L)
+	if (key == ESC_M)
 	{
 		int i = 0;
 		while (v->lst)
@@ -14,11 +14,13 @@ int		key_hook(int key, t_v *v)
 			free(v->lst);
 			v->lst = v->lst->next;
 		}
-
-		mlx_destroy_window(v->mlx, v->win);
+/*		if ((v->fd = open("visual.txt", O_TRUNC) == -1))
+			ft_print_error("RIP");
+		close(v->fd);
+*/		mlx_destroy_window(v->mlx, v->win);
 		exit(0);
 	}
-	if (key == SP_L)
+	if (key == SP_M)
 	{
 		if (v->lst->next)
 			v->lst = v->lst->next;

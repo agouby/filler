@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 15:06:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 19:41:04 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/24 20:28:09 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ void	print_piece_map(t_fill *fill, t_play *p)
 	t_coord i;
 
 	i.y = 0;
-	while (is_overlap(fill, p) && p->help.next_dist < fill->nb_pos)
-	{
-		get_next_dist(fill, p);
-		update_dir(fill, p);
-		get_pos_piece(fill, p);
-	}
-	if (p->help.next_dist == fill->nb_pos && fill->nb_pos > 2)
-		ft_print_error("BOUUH CACA");
-	i.y = 0;
 	while (i.y < fill->pie_s.y)
 	{
 		i.x = 0;
@@ -58,5 +49,5 @@ void	print_piece_map(t_fill *fill, t_play *p)
 void	get_piece(t_fill *fill, t_play *play)
 {
 	get_pos_piece(fill, play);
-	print_piece_map(fill, play);
+//	print_piece_map(fill, play);
 }

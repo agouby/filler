@@ -29,7 +29,7 @@ void	read_file(t_v *v)
 	char	*line;
 
 	line = NULL;
-	if ((v->fd = open("visual.txt", O_RDONLY)) == -1)
+	if ((v->fd = open("visual.txt", O_RDWR)) == -1)
 		ft_print_error("Open failed on visual.cfg");
 	get_infos(v->fd, v, line);
 	store_in_list(v, line);

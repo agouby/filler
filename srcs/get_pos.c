@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 07:49:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 20:34:36 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/24 20:19:59 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_last_pos(t_fill *fill, t_play *play, char player)
 
 	i = fill->map_s.y - 1;
 	tmp = NULL;
-	while (!(tmp = ft_strrchr(fill->map[i], player)))
+	while (!(tmp = ft_strrchr(fill->map[i], player)) && i > 0)
 		i--;
 	if (player == play->me.c)
 	{
@@ -81,22 +81,12 @@ void	get_next_pos(t_fill *fill, t_player *plyr)
 	}
 }
 
-void	get_next_dist(t_fill *fill, t_play *play)
-{
-	play->help.tmp_dist = fill->d_tab[play->help.next_dist][0];
-	play->me.pos.y = fill->d_tab[play->help.next_dist][1];
-	play->me.pos.x = fill->d_tab[play->help.next_dist][2];
-	play->op.pos.y = fill->d_tab[play->help.next_dist][3];
-	play->op.pos.x = fill->d_tab[play->help.next_dist][4];
-	play->help.next_dist++;
-}
-
 void	get_closest_pos(t_fill *fill, t_play *play)
 {
 	get_first_pos(fill, play, play->me.c);
 	get_first_pos(fill, play, play->op.c);
 	get_last_pos(fill, play, play->me.c);
 	get_last_pos(fill, play, play->op.c);
+//	ft_printf("me = [%d, %d] op = [%d, %d]\n", play->me.pos.y, play->me.pos.x, play->op.pos.y, play->op.pos.x);
 	get_dist(fill, play);
-	get_next_dist(fill, play);
 }

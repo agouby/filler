@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/22 22:21:59 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/24 17:01:59 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ $(NAME): $(OBJ_fil) $(OBJ_vis) includes/filler.h includes/visual.h
 #	touch visual.txt
 	make -C lib
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ_fil) -L./lib -lftprintf
-	$(CC) $(FLAGS) -o visual.fx $(OBJ_vis) -L./lib -lftprintf -L./minilibx11 -lmlx -lX11 -lXext
+	$(CC) $(FLAGS) -o visual.fx $(OBJ_vis) -L./lib -lftprintf -lmlx -framework Appkit -framework OpenGL
 
 %.o: %.c
 	gcc $(FLAGS) $(INC)  -c $< -o $@

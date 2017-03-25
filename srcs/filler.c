@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 21:38:36 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/25 06:54:02 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ void	filler(void)
 	fd = 0;
 	get_player(fd, &play);
 	ft_dprintf(fd_vis, "%c\n", play.me.c);
+	play.touched = 0;
+//	int n = 1;
 	while (1){
+	play.help.small_dist = 9000;
 	init_structs(&fill, &play);
 	store_infos(fd, fd_vis, &fill);
-	get_closest_pos(&fill, &play);
+	if (play.touched == 0)
+		get_closest_pos(&fill, &play);
 	fill.map[play.op.pos.y][play.op.pos.x + 4] = ft_tolower(play.op.c);
 	fill.map[play.me.pos.y][play.me.pos.x + 4] = ft_tolower(play.me.c);
-	get_direction(&play);
-	get_quarter(&fill, &play.me);
-	get_quarter(&fill, &play.op);
-	get_piece(&fill, &play);
+//	print_piece_map(&fill, &play);
 //	print_map(fill.map);
 //	print_piece(fill.piece);
 //	ft_printf("Me : %c\nOp : %c\n\n", play.me.c, play.op.c);

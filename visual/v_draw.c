@@ -35,7 +35,7 @@ void	draw_grid(t_v *v)
 		pos.x = 0;
 		while (pos.x <= dist.x + 0)
 		{
-			draw_pixel(pos, v, 0xFFFFFF);
+			draw_pixel(pos, v, 0x000000);
 			pos.x++;
 		}
 		pos.y += v->sq_s;
@@ -48,7 +48,7 @@ void	draw_grid(t_v *v)
 		pos.y = 0;
 		while (pos.y <= dist.y)
 		{
-			draw_pixel(pos, v, 0xFFFFFF);
+			draw_pixel(pos, v, 0x000000);
 			pos.y++;
 		}
 		pos.x += v->sq_s;

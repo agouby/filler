@@ -1,5 +1,2 @@
-seed = 3235
-O: error on input
-players/carli.filler won
-Score:
-24AGAINST24
+seed = 2104
+players/agouby.filler: Segfault at 19

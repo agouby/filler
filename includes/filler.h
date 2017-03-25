@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 21:41:13 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/25 05:54:10 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ typedef struct	s_player
 	t_coord	pos;
 	t_coord	first;
 	t_coord	last;
+	t_coord	tmp;
+	t_coord	tmp2;
 	t_coord	next;
 }				t_player;
 
 typedef struct	s_fill
 {
 	char		**map;
-	int			**d_tab;
 	int			oc;
 	int			xc;
 	int			nb_pos;
@@ -52,7 +53,7 @@ typedef struct	s_fill
 typedef	struct	s_help
 {
 	int		tmp_dist;
-	int		next_dist;
+	int		small_dist;
 	t_coord	pos_o_saved;
 	t_coord	pos_m_saved;
 }				t_help;
@@ -64,6 +65,8 @@ typedef	struct	s_play
 	t_coord		pie_pos;
 	t_coord		pie_len;
 	t_help		help;
+	int			touched;
+	int			cnt;
 	char		dir[3];
 }				t_play;
 
@@ -100,5 +103,6 @@ void			chk_dir_d(t_fill *f, t_play *p, char *(*ft)(const char *, int));
 */
 
 void			print_dist(t_fill *fill);
+void			print_piece_map(t_fill *fill, t_play *play);
 
 #endif
