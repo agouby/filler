@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 22:10:16 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 11:54:25 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 12:10:27 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	get_neighbors(t_fill *f, t_play *p, t_coord i)
 				|| i.x + p->pie_pos.x + n.x < 0 || i.x + p->pie_pos.x + n.x >= f->map_s.x)
 			return ;
 			if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4] == p->op.c)
-				p->nei_pts += 20;
+				p->nei_pts += 50;
 			else if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4] == p->me.c)
 				p->nei_pts += 1;
 			n.x++;
