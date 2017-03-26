@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/25 05:54:10 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 04:29:54 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ typedef struct	s_player
 	char	quart[3];
 	t_coord	pos;
 	t_coord	first;
+	t_coord tmp;
 	t_coord	last;
-	t_coord	tmp;
-	t_coord	tmp2;
 	t_coord	next;
 }				t_player;
 
@@ -63,10 +62,12 @@ typedef	struct	s_play
 	t_player	op;
 	t_player	me;
 	t_coord		pie_pos;
-	t_coord		pie_len;
+	t_coord		pie_pos_tmp;
+	t_coord		sta_pie;
 	t_help		help;
 	int			touched;
-	int			cnt;
+	int			overlapped;
+	int			nb_tries;
 	char		dir[3];
 }				t_play;
 
@@ -97,6 +98,9 @@ void			update_dir(t_fill *fill, t_play *play);
 void			change_dir(t_play *play);
 void			chk_dir_u(t_fill *f, t_play *p, char *(*ft)(const char *, int));
 void			chk_dir_d(t_fill *f, t_play *p, char *(*ft)(const char *, int));
+void			get_start_piece(t_fill *fill, t_play *play);
+void			check_touched(t_fill *fill, t_play *play, t_coord i);
+void			move_piece(t_fill *fill, t_play *p);
 
 /*
 **	TO DELETE

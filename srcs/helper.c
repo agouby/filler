@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/25 06:51:48 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 06:48:40 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,22 @@ int		is_overlap(t_fill *f, t_play *p)
 
 	count = 0;
 	i.y = 0;
-	get_piece(f, p);
-	while (i.y < f->pie_s.y)
+	while (count < 2 && i.y < f->pie_s.y)
 	{
 		i.x = 0;
-		while (i.x < f->pie_s.x)
+		while (count < 2 && i.x < f->pie_s.x)
 		{
 			if (f->piece[i.y][i.x] == '*')
 			{
-				if (i.y + p->pie_pos.y >= f->map_s.y
-						|| i.x + p->pie_pos.x >= f->map_s.x)
+				if (i.y + p->pie_pos.y >= f->map_s.y || i.y + p->pie_pos.y < 0
+						|| i.x + p->pie_pos.x >= f->map_s.x || i.x + p->pie_pos.x < 0)
+					return (1);
+				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->op.c)
+					return (1);
+				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->me.c)
 					count++;
-				else
-				{
-				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] != '.')
-					count++;
-				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 5] == p->op.c)
-					p->touched = 1;
-				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 3] == p->op.c)
-					p->touched = 1;
-				if (f->map[p->pie_pos.y + i.y + 1][p->pie_pos.x + i.x + 4] == p->op.c)
-					p->touched = 1;
-				if (f->map[p->pie_pos.y + i.y - 1][p->pie_pos.x + i.x + 4] == p->op.c)
-					p->touched = 1;
-				}
+				if (!p->touched)
+					check_touched(f, p, i);
 			}
 			i.x++;
 		}

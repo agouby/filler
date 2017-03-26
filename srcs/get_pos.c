@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 07:49:31 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/24 20:19:59 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 06:40:34 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_first_pos(t_fill *fill, t_play *play, char player)
 
 	i = 0;
 	tmp = NULL;
-	while (!(tmp = ft_strchr(fill->map[i], player)) && i < fill->map_s.y - 1)
+	while (i < fill->map_s.y && !(tmp = ft_strchr(fill->map[i], player)))
 		i++;
 	if (!tmp)
 		ft_print_error("Player not found.");
@@ -42,7 +42,7 @@ void	get_last_pos(t_fill *fill, t_play *play, char player)
 
 	i = fill->map_s.y - 1;
 	tmp = NULL;
-	while (!(tmp = ft_strrchr(fill->map[i], player)) && i > 0)
+	while (i >= 0 && !(tmp = ft_strrchr(fill->map[i], player)))
 		i--;
 	if (player == play->me.c)
 	{
