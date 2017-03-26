@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 07:28:11 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 07:32:56 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	filler(void)
 	t_play	play;
 
 	fd_vis = 50;
-	if ((fd = open("test3.txt", O_RDONLY)) == -1)
-		ft_print_error("Open failed.");
+//	if ((fd = open("test3.txt", O_RDONLY)) == -1)
+//		ft_print_error("Open failed.");
 //	if ((fd_vis = open("visual.txt", O_RDWR)) == -1)
 //		ft_print_error("Open failed.");
 	fd = 0;
