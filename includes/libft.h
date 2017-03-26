@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 18:03:27 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/22 14:16:04 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 15:19:14 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 # define ABS(X) (X < 0 ? -X : X)
 # define BUFF_SIZE 200
 
-/*
-typedef struct	s_boolean
-{
-	unsigned char boo : 1;
-}				t_boolean;
-*/
 typedef struct	s_list
 {
 	void			*content;
@@ -125,5 +119,6 @@ size_t			ft_countwords(char *str, int c);
 int				get_next_line(const int fd, char **line);
 void			ft_swapi(int *a, int *b);
 void			ft_swap_tab(int **a, int **b);
+void			ft_jump_lines(int fd, char *line, size_t n);
 
 #endif

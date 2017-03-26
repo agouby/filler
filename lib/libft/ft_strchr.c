@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 12:06:19 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/16 15:30:12 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 15:02:10 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strchr(const char *s, int c)
 {
 	char *new;
-	
+
 	new = (char *)s;
 	if (c == '\0')
 		return (new + ft_strlen(new));

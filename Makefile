@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/24 17:01:59 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/26 16:11:45 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_vis =  $(shell find ./visual | grep "\.c" | grep -v "\.c.swp")
 
 OBJ_fil = $(SRC_fil:%.c=%.o)
 OBJ_vis = $(SRC_vis:%.c=%.o)
-FLAGS = -g -Wall -Werror -Wextra
+#FLAGS = -g -Wall -Werror -Wextra
 
 
 all: $(NAME)

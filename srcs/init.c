@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 11:16:20 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 14:48:36 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	init_play_struct(t_play *play)
 	play->nei_pts = 0;
 	play->best_nei = 0;
 	init_coord(&play->pie_pos_tmp);
-	init_coord(&play->sta_pie);
 	init_coord(&play->help.pos_o_saved);
 	init_coord(&play->help.pos_m_saved);
 	init_coord(&play->pie_pos);

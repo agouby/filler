@@ -6,14 +6,11 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 12:01:13 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 15:19:37 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-
-#include <stdio.h>
 
 void	get_player(int fd, t_play *play)
 {
@@ -33,23 +30,15 @@ void	get_size(int fd, char *line, t_fill *fill)
 	ft_strdel(&line);
 }
 
-void	create_map(int fd, int fd_vis, t_fill *fill)
+void	create_map(int fd, t_fill *fill)
 {
 	int	i;
-//	static int n = 0;
 
-	(void)fd_vis;
 	i = 0;
 	if (!(fill->map = (char **)malloc(sizeof(char *) * (fill->map_s.y + 1))))
 		ft_print_error("Memory allocation failed.");
 	while (i < fill->map_s.y && get_next_line(fd, &fill->map[i]))
-	{
-//		if (n++ == 0)
-//			ft_dprintf(fd_vis, "%d\n%d\n", fill->map_s.y, fill->map_s.x);
-//		ft_dprintf(fd_vis, "%s\n", fill->map[i]);
 		i++;
-	}
-//	ft_dprintf(fd_vis, "\n");
 	fill->map[fill->map_s.y] = NULL;
 }
 
@@ -69,14 +58,13 @@ void	create_pie(int fd, char *line, t_fill *fill)
 	fill->piece[fill->pie_s.y] = NULL;
 }
 
-void	store_infos(int fd, int fd_vis, t_fill *fill)
+void	store_infos(int fd, t_fill *fill)
 {
 	char	*line;
 
-	(void)fd_vis;
 	line = NULL;
 	get_size(fd, line, fill);
-	jump_lines(fd, line, 1);
-	create_map(fd, fd_vis, fill);
+	ft_jump_lines(fd, line, 1);
+	create_map(fd, fill);
 	create_pie(fd, line, fill);
 }

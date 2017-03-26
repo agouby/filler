@@ -6,22 +6,24 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 11:23:45 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 15:18:07 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	jump_lines(int fd, char *line, size_t n)
+void	del_arrays(t_fill *fill)
 {
-	size_t i;
+	int i;
 
 	i = 0;
-	while (i++ < n)
-	{
-		get_next_line(fd, &line);
-		ft_strdel(&line);
-	}
+	while (i < fill->map_s.y)
+		free(fill->map[i++]);
+	free(fill->map);
+	i = 0;
+	while (i < fill->pie_s.y)
+		free(fill->piece[i++]);
+	free(fill->piece);
 }
 
 void	end_next_pos(t_player *player)
@@ -30,16 +32,26 @@ void	end_next_pos(t_player *player)
 	player->pos.y = -1;
 }
 
-void	get_quarter(t_fill *fill, t_player *player)
+int		deal_with_star(t_fill *f, t_play *p, t_coord i)
 {
-	if (player->pos.x < (fill->map_s.x / 2))
-		player->quart[0] = 'L';
-	else
-		player->quart[0] = 'R';
-	if (player->pos.y < (fill->map_s.y / 2))
-		player->quart[1] = 'U';
-	else
-		player->quart[1] = 'D';
+	int count;
+
+	count = 0;
+	if (f->piece[i.y][i.x] == '*')
+	{
+		if (i.y + p->pie_pos.y >= f->map_s.y || i.y + p->pie_pos.y < 0
+				|| i.x + p->pie_pos.x >= f->map_s.x || i.x + p->pie_pos.x < 0)
+			return (5);
+		if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->op.c)
+			return (5);
+		if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->me.c)
+			count++;
+		if (!p->touched)
+			check_touched(f, p, i);
+		else
+			get_neighbors(f, p, i);
+	}
+	return (count);
 }
 
 int		is_overlap(t_fill *f, t_play *p)
@@ -54,20 +66,7 @@ int		is_overlap(t_fill *f, t_play *p)
 		i.x = 0;
 		while (count < 2 && i.x < f->pie_s.x)
 		{
-			if (f->piece[i.y][i.x] == '*')
-			{
-				if (i.y + p->pie_pos.y >= f->map_s.y || i.y + p->pie_pos.y < 0
-						|| i.x + p->pie_pos.x >= f->map_s.x || i.x + p->pie_pos.x < 0)
-					return (1);
-				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->op.c)
-					return (1);
-				if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->me.c)
-					count++;
-				if (!p->touched)
-					check_touched(f, p, i);
-				else
-					get_neighbors(f, p, i);
-			}
+			count += deal_with_star(f, p, i);
 			i.x++;
 		}
 		i.y++;

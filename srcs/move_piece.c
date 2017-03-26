@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 22:10:16 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 12:10:27 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 14:50:53 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	move_piece(t_fill *f, t_play *p)
 	t_coord tmp;
 	t_coord tmp2;
 
-	get_start_piece(f ,p);
+	get_start_piece(f, p);
 	tmp = p->pie_pos;
 	tmp2 = p->pie_pos;
 	while (p->pie_pos.y < f->map_s.y)
@@ -37,11 +37,9 @@ void	move_piece(t_fill *f, t_play *p)
 			p->nei_pts = 0;
 			if (is_overlap(f, p) == 0)
 			{
-	//			ft_printf("%d\n", p->nei_pts);
 				if (p->nei_pts >= p->best_nei)
 				{
 					p->best_nei = p->nei_pts;
-	///				ft_printf("Nei = %d, [%d, %d]\n", p->best_nei, p->pie_pos.y, p->pie_pos.x);
 					tmp = p->pie_pos;
 				}
 			}
@@ -63,12 +61,16 @@ void	get_neighbors(t_fill *f, t_play *p, t_coord i)
 		n.x = -1;
 		while (n.x < 2)
 		{
-		if (i.y + p->pie_pos.y + n.y < 0 || i.y + p->pie_pos.y + n.y >= f->map_s.y
-				|| i.x + p->pie_pos.x + n.x < 0 || i.x + p->pie_pos.x + n.x >= f->map_s.x)
-			return ;
-			if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4] == p->op.c)
+			if (i.y + p->pie_pos.y + n.y < 0
+				|| i.y + p->pie_pos.y + n.y >= f->map_s.y
+				|| i.x + p->pie_pos.x + n.x < 0
+				|| i.x + p->pie_pos.x + n.x >= f->map_s.x)
+				return ;
+			if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4]
+					== p->op.c)
 				p->nei_pts += 50;
-			else if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4] == p->me.c)
+			if (f->map[i.y + p->pie_pos.y + n.y][i.x + p->pie_pos.x + n.x + 4]
+					== p->me.c)
 				p->nei_pts += 1;
 			n.x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 20:26:59 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 08:16:43 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 14:49:27 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	get_dist(t_fill *fill, t_play *play)
 		while (play->me.pos.y != -1 || play->me.pos.x != -1)
 		{
 			play->nb_tries++;
-			get_piece(fill, play);
+			get_pos_piece(fill, play);
 			if (!is_overlap(fill, play))
 				calculate_dist(play);
 			else
