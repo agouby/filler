@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 06:23:57 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 11:16:20 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ static void	init_fill_struct(t_fill *fill)
 {
 	fill->map = NULL;
 	fill->piece = NULL;
-	fill->oc = 0;
-	fill->xc = 0;
-	fill->nb_pos = 0;
 	init_coord(&fill->map_s);
 	init_coord(&fill->pie_s);
 }
@@ -47,6 +44,8 @@ static void	init_play_struct(t_play *play)
 	play->help.tmp_dist = 0;
 	play->nb_tries = 0;
 	play->overlapped = 0;
+	play->nei_pts = 0;
+	play->best_nei = 0;
 	init_coord(&play->pie_pos_tmp);
 	init_coord(&play->sta_pie);
 	init_coord(&play->help.pos_o_saved);

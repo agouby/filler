@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 07:32:56 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 12:01:02 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	filler(void)
 	get_player(fd, &play);
 //	ft_dprintf(fd_vis, "%c\n", play.me.c);
 	play.touched = 0;
-	int n = 100000;
-	while (n--){
+//	int n = 50000;
+	while (1){
 	play.help.small_dist = 9000;
 	init_structs(&fill, &play);
 	store_infos(fd, fd_vis, &fill);

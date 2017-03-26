@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 06:48:40 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 11:23:45 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int		is_overlap(t_fill *f, t_play *p)
 					count++;
 				if (!p->touched)
 					check_touched(f, p, i);
+				else
+					get_neighbors(f, p, i);
 			}
 			i.x++;
 		}

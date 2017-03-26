@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 07:30:35 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 12:01:13 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	create_map(int fd, int fd_vis, t_fill *fill)
 //		if (n++ == 0)
 //			ft_dprintf(fd_vis, "%d\n%d\n", fill->map_s.y, fill->map_s.x);
 //		ft_dprintf(fd_vis, "%s\n", fill->map[i]);
-		count_pos(fill, &fill->map[i++]);
+		i++;
 	}
 //	ft_dprintf(fd_vis, "\n");
 	fill->map[fill->map_s.y] = NULL;

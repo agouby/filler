@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 20:26:59 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 06:55:06 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 08:16:43 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	calculate_dist(t_play *play)
 
 void	get_dist(t_fill *fill, t_play *play)
 {
-	fill->nb_pos = fill->oc * fill->xc;
 	play->op.pos = play->op.first;
 	while (play->op.pos.y != -1 || play->op.pos.x != -1)
 	{
@@ -42,9 +41,7 @@ void	get_dist(t_fill *fill, t_play *play)
 			play->nb_tries++;
 			get_piece(fill, play);
 			if (!is_overlap(fill, play))
-			{
 				calculate_dist(play);
-			}
 			else
 				play->overlapped++;
 			get_next_pos(fill, &play->me);
@@ -52,11 +49,11 @@ void	get_dist(t_fill *fill, t_play *play)
 		get_next_pos(fill, &play->op);
 	}
 	if (play->nb_tries == play->overlapped)
-		move_piece(fill, play);
-	else 
 	{
-		play->me.pos = play->me.tmp;
-		play->op.pos = play->op.tmp;
-		play->pie_pos = play->pie_pos_tmp;
+		move_piece(fill, play);
+		return ;
 	}
+	play->me.pos = play->me.tmp;
+	play->op.pos = play->op.tmp;
+	play->pie_pos = play->pie_pos_tmp;
 }

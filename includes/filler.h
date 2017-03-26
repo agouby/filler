@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 04:29:54 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/26 10:28:48 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ typedef struct	s_player
 typedef struct	s_fill
 {
 	char		**map;
-	int			oc;
-	int			xc;
-	int			nb_pos;
 	t_coord		map_s;
 	t_coord		pie_s;
 	char		**piece;
@@ -65,6 +62,8 @@ typedef	struct	s_play
 	t_coord		pie_pos_tmp;
 	t_coord		sta_pie;
 	t_help		help;
+	int			nei_pts;
+	int			best_nei;
 	int			touched;
 	int			overlapped;
 	int			nb_tries;
@@ -90,7 +89,6 @@ void			get_next_pos(t_fill *fill, t_player *player);
 void			end_next_pos(t_player *player);
 void			get_piece(t_fill *fill, t_play *play);
 void			get_quarter(t_fill *fill, t_player *player);
-void			count_pos(t_fill *fill, char **line);
 int				is_overlap(t_fill *fill, t_play *play);
 void			get_next_dist(t_fill *fill, t_play *play);
 void			store_all_dist(t_fill *fill, t_play *play);
@@ -101,6 +99,7 @@ void			chk_dir_d(t_fill *f, t_play *p, char *(*ft)(const char *, int));
 void			get_start_piece(t_fill *fill, t_play *play);
 void			check_touched(t_fill *fill, t_play *play, t_coord i);
 void			move_piece(t_fill *fill, t_play *p);
+void			get_neighbors(t_fill *f, t_play *p, t_coord i);
 
 /*
 **	TO DELETE
