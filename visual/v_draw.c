@@ -1,12 +1,12 @@
 #include "visual.h"
 
-static void		draw_pixel(int y, int x, t_v *v, int color)
+void	draw_pixel(int y, int x, t_v *v, int color)
 {
 	int i;
 
-	if ((int)x < 0 || (int)x >= WIDTH || (int)y < 0 || (int)y >= HEIGHT)
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
-	i = ((int)x * 4) + ((int)y * v->s_line);
+	i = (x * 4) + (y * v->s_line);
 	v->pixel_img[i] = color;
 	v->pixel_img[++i] = color >> 8;
 	v->pixel_img[++i] = color >> 16;
@@ -15,12 +15,12 @@ static void		draw_pixel(int y, int x, t_v *v, int color)
 void	get_square_size(t_v *v)
 {
 	if (v->map_s.y > v->map_s.x)
-		v->sq_s = (WIDTH / v->map_s.y);
+		v->sq_s = (HEIGHT / v->map_s.y);
 	else
 		v->sq_s = (HEIGHT / v->map_s.x);
 }
 
-/*void	draw_grid(t_v *v)
+void	draw_grid(t_v *v)
 {
 	t_coord dist;
 	t_coord pos;
@@ -35,7 +35,9 @@ void	get_square_size(t_v *v)
 		pos.x = 0;
 		while (pos.x <= dist.x + 0)
 		{
-			draw_pixel(pos, v, 0x000000);
+			draw_pixel(pos.y, pos.x, v, 0x000000);
+			draw_pixel(pos.y + 1, pos.x, v, 0x000000);
+			draw_pixel(pos.y - 1, pos.x, v, 0x000000);
 			pos.x++;
 		}
 		pos.y += v->sq_s;
@@ -48,26 +50,25 @@ void	get_square_size(t_v *v)
 		pos.y = 0;
 		while (pos.y <= dist.y)
 		{
-			draw_pixel(pos, v, 0x000000);
+			draw_pixel(pos.y, pos.x, v, 0x000000);
+			draw_pixel(pos.y, pos.x - 1, v, 0x000000);
+			draw_pixel(pos.y, pos.x + 1, v, 0x000000);
 			pos.y++;
 		}
 		pos.x += v->sq_s;
 		i.x++;
 	}
 }
-*/
 
-int	get_color(int i, char *line)
+
+void	get_color(t_v *v, char letter, int *color)
 {
-	int color;
-
-	if (line[i] == 'O')
-		color = 0x0000FF;
-	else if (line[i] == 'X')
-		color = 0xFF0000;
+	if (ft_toupper(letter) == v->me)
+		*color = 0xFF2800;
+	else if (ft_toupper(letter) == v->him)
+		*color = 0x007BFF;
 	else
-		color = 0xFFFFFF;
-	return (color);
+		*color = 0x292929;
 }
 
 void	draw_square(t_v *v, int y, int x, int color)
@@ -81,36 +82,46 @@ void	draw_square(t_v *v, int y, int x, int color)
 		while (i.x <= v->sq_s)
 		{
 			draw_pixel(y + i.y, x + i.x, v, color);
-			i.x++;			
+			i.x++;
 		}
 		i.y++;
 	}
 }
 
-void	draw_square_line(t_v *v, int y ,char *line)
+void	tab_del(char **map)
 {
-	int i = 0;
-	int sq_tmp;
-	int color;
+	int i;
 
-	sq_tmp = 0;
-	while (line[i])
-	{
-		color = get_color(i, line);
-		if (i == 0)
-			draw_square(v, y, i, color);
-		else
-			draw_square(v, y, sq_tmp, color);
-		sq_tmp += v->sq_s;
-		i++;
-	}
+	i = 0;
+	while (map[i])
+		ft_strdel(&map[i++]);
+	free(map);
 }
 
+void	v_draw_all_squares(t_v *v)
+{
+	t_coord i;
+	t_coord p;
+	int		color;
 
-
-
-
-
-
-
-
+	i.y = 0;
+	p.y = 0;
+	color = 0;
+	get_square_size(v);
+	while (v->map[i.y])
+	{
+		i.x = 0;
+		p.x = 0;
+		while (v->map[i.y][i.x])
+		{
+			get_color(v, v->map[i.y][i.x], &color);
+			draw_square(v, p.y, p.x, color);
+			p.x += v->sq_s;
+			i.x++;
+		}
+		i.y++;
+		p.y += v->sq_s;
+	}
+	draw_grid(v);
+//	tab_del(v->map);
+}

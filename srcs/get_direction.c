@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 20:32:37 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 14:47:37 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:31:01 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	chk_dir_u(t_fill *fill, t_play *play, char *(*f)(const char *, int))
 
 	s = NULL;
 	i = fill->pie_s.y - 1;
-	while (i > 0 && !(s = f(fill->piece[i], '*')))
+	while (i >= 0 && !(s = f(fill->piece[i], '*')))
 		i--;
 	play->pie_pos.y = i;
 	play->pie_pos.x = s - fill->piece[i];

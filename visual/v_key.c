@@ -1,6 +1,6 @@
 #include "visual.h"
 
-int		key_hook(int key, t_v *v)
+int		v_key_hook(int key, t_v *v)
 {
 	if (key == ESC_M)
 	{

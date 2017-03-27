@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:28:55 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 14:48:36 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 18:00:00 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_fill_struct(t_fill *fill)
 {
 	fill->map = NULL;
 	fill->piece = NULL;
+	fill->nb_op = 0;
 	init_coord(&fill->map_s);
 	init_coord(&fill->pie_s);
 }

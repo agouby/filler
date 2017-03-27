@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 15:18:07 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 20:59:50 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int		deal_with_star(t_fill *f, t_play *p, t_coord i)
 			return (5);
 		if (f->map[p->pie_pos.y + i.y][p->pie_pos.x + i.x + 4] == p->me.c)
 			count++;
-		if (!p->touched)
+		if (p->touched == 0)
 			check_touched(f, p, i);
-		else
+		else if (p->won == 0)
 			get_neighbors(f, p, i);
 	}
 	return (count);

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 20:51:05 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 16:39:41 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 21:04:06 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,24 @@ typedef struct	s_v
 	int		s_line;
 	int		ed;
 	int		sq_s;
-	char	player;
+	int		nb_pos;
+	int		nb_pos_m;
+	int		nb_pos_o;
+	char	me;
+	char	him;
+	char	**map;
 	t_coord	map_s;
 }				t_v;
 
+void	v_create_win(t_v *v);
 void	create_win(t_v *v);
-int		key_hook(int key, t_v *v);
+int		v_key_hook(int key, t_v *v);
+void	v_parse_file(t_v *v);
+void	v_draw_all_squares(t_v *v);
+void	v_init(t_v *v);
+void	draw_pixel(int y, int x, t_v *v, int color);
+
+void	v_draw_score_bk(t_v *v);
 //void	reload(t_v *v);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 15:19:37 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 20:55:45 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ void	get_player(int fd, t_play *play)
 	char *line;
 
 	get_next_line(fd, &line);
-	play->me.c = (line[10] == '1') ? 'O' : 'X';
-	play->op.c = (play->me.c == 'O') ? 'X' : 'O';
+	if (line[10] == '1' && ft_strstr(line, "agouby"))
+	{
+		play->me.c = 'O';
+		play->op.c = 'X';
+	}
+	else
+	{
+		play->me.c = 'X';
+		play->op.c = 'O';
+	}
 	ft_strdel(&line);
 }
 
@@ -30,15 +38,30 @@ void	get_size(int fd, char *line, t_fill *fill)
 	ft_strdel(&line);
 }
 
-void	create_map(int fd, t_fill *fill)
+void	create_map(int fd, t_fill *fill, t_play *play, int fd2)
 {
 	int	i;
+	int n;
 
 	i = 0;
+	n = 0;
 	if (!(fill->map = (char **)malloc(sizeof(char *) * (fill->map_s.y + 1))))
 		ft_print_error("Memory allocation failed.");
 	while (i < fill->map_s.y && get_next_line(fd, &fill->map[i]))
+	{
+		n = 0;
+		ft_dprintf(fd2, "%s\n", fill->map[i]);
+		while (fill->map[i][n])
+		{
+			if (fill->map[i][n++] == play->op.c)
+				fill->nb_op++;
+		}
 		i++;
+	}
+	if (fill->last_nb_op == fill->nb_op)
+		play->won = 1;
+	else
+		fill->last_nb_op = fill->nb_op;
 	fill->map[fill->map_s.y] = NULL;
 }
 
@@ -58,13 +81,13 @@ void	create_pie(int fd, char *line, t_fill *fill)
 	fill->piece[fill->pie_s.y] = NULL;
 }
 
-void	store_infos(int fd, t_fill *fill)
+void	store_infos(int fd, t_fill *fill, t_play *play, int fd2)
 {
 	char	*line;
 
 	line = NULL;
 	get_size(fd, line, fill);
 	ft_jump_lines(fd, line, 1);
-	create_map(fd, fill);
+	create_map(fd, fill, play, fd2);
 	create_pie(fd, line, fill);
 }

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 22:10:16 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/26 14:50:53 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:54:50 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	move_piece(t_fill *f, t_play *p)
 			p->nei_pts = 0;
 			if (is_overlap(f, p) == 0)
 			{
+				if (p->won == 1)
+					return ;
 				if (p->nei_pts >= p->best_nei)
 				{
 					p->best_nei = p->nei_pts;
