@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 20:51:33 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 21:09:28 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			filler(void);
 void			init_structs(t_fill *fill, t_play *play);
 void			static_init(t_fill *fill, t_play *play);
 void			get_player(int fd, t_play *play);
-void			store_infos(int fd, t_fill *fill, t_play *play, int fd2);
+void			store_infos(int fd, t_fill *fill, t_play *play);
 void			jump_lines(int fd, char *line, size_t i);
 void			create_piece(int fd, char *line, t_fill *fill);
 void			del_arrays(t_fill *fill);

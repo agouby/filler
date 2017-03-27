@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 20:55:45 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 21:09:13 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_size(int fd, char *line, t_fill *fill)
 	ft_strdel(&line);
 }
 
-void	create_map(int fd, t_fill *fill, t_play *play, int fd2)
+void	create_map(int fd, t_fill *fill, t_play *play)
 {
 	int	i;
 	int n;
@@ -50,7 +50,6 @@ void	create_map(int fd, t_fill *fill, t_play *play, int fd2)
 	while (i < fill->map_s.y && get_next_line(fd, &fill->map[i]))
 	{
 		n = 0;
-		ft_dprintf(fd2, "%s\n", fill->map[i]);
 		while (fill->map[i][n])
 		{
 			if (fill->map[i][n++] == play->op.c)
@@ -81,13 +80,13 @@ void	create_pie(int fd, char *line, t_fill *fill)
 	fill->piece[fill->pie_s.y] = NULL;
 }
 
-void	store_infos(int fd, t_fill *fill, t_play *play, int fd2)
+void	store_infos(int fd, t_fill *fill, t_play *play)
 {
 	char	*line;
 
 	line = NULL;
 	get_size(fd, line, fill);
 	ft_jump_lines(fd, line, 1);
-	create_map(fd, fill, play, fd2);
+	create_map(fd, fill, play);
 	create_pie(fd, line, fill);
 }

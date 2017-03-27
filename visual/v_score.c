@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 18:29:41 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 21:06:28 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/27 21:08:33 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	v_draw_score_bk(t_v *v)
 {
 	t_coord i;
 
-	i.y = 100;
-	while (i.y < 880)
+	i.y = 300;
+	while (i.y < 980)
 	{
-		i.x = 1100;
-		while (i.x < 1200)
+		i.x = 1200;
+		while (i.x < 1300)
 		{
 			draw_pixel(i.y, i.x, v, 0xFFFFFF);
 			i.x++;
