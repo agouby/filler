@@ -18,6 +18,8 @@ void	get_square_size(t_v *v)
 		v->sq_s = (HEIGHT / v->map_s.y);
 	else
 		v->sq_s = (HEIGHT / v->map_s.x);
+	v->of.y = (HEIGHT - (v->sq_s * v->map_s.y)) / 2;
+	v->of.x = (HEIGHT - (v->sq_s * v->map_s.x)) / 2;
 }
 
 void	draw_grid(t_v *v)
@@ -28,16 +30,17 @@ void	draw_grid(t_v *v)
 
 	dist.y = v->sq_s * v->map_s.y;
 	dist.x = v->sq_s * v->map_s.x;
-	pos.y = 0;
+	pos.y = (1000 - (v->map_s.y * v->sq_s)) / 2;
+	int posx2 = pos.y;
 	i.y = 0;
 	while (i.y <= v->map_s.y)
 	{
 		pos.x = 0;
-		while (pos.x <= dist.x + 0)
+		while (pos.x <= dist.x)
 		{
-			draw_pixel(pos.y, pos.x, v, 0x000000);
-			draw_pixel(pos.y + 1, pos.x, v, 0x000000);
-			draw_pixel(pos.y - 1, pos.x, v, 0x000000);
+			draw_pixel(pos.y, pos.x, v, 0x292929);
+			draw_pixel(pos.y - 1, pos.x, v, 0x292929);
+			draw_pixel(pos.y + 1, pos.x, v, 0x292929);
 			pos.x++;
 		}
 		pos.y += v->sq_s;
@@ -47,12 +50,12 @@ void	draw_grid(t_v *v)
 	i.x = 0;
 	while (i.x <= v->map_s.x)
 	{
-		pos.y = 0;
-		while (pos.y <= dist.y)
+		pos.y = (1000 - (v->map_s.y * v->sq_s)) / 2;
+		while (pos.y <= dist.y + posx2)
 		{
-			draw_pixel(pos.y, pos.x, v, 0x000000);
-			draw_pixel(pos.y, pos.x - 1, v, 0x000000);
-			draw_pixel(pos.y, pos.x + 1, v, 0x000000);
+			draw_pixel(pos.y, pos.x, v, 0x292929);
+			draw_pixel(pos.y, pos.x - 1, v, 0x292929);
+			draw_pixel(pos.y, pos.x + 1, v, 0x292929);
 			pos.y++;
 		}
 		pos.x += v->sq_s;
@@ -63,12 +66,12 @@ void	draw_grid(t_v *v)
 
 void	get_color(t_v *v, char letter, int *color)
 {
-	if (ft_toupper(letter) == v->me)
-		*color = 0xFF2800;
-	else if (ft_toupper(letter) == v->him)
-		*color = 0x007BFF;
+	if (ft_toupper(letter) == 'O')
+		*color = v->p1.color;
+	else if (ft_toupper(letter) == 'X')
+		*color = v->p2.color;
 	else
-		*color = 0x292929;
+		*color = v->bk_color;
 }
 
 void	draw_square(t_v *v, int y, int x, int color)
@@ -88,14 +91,17 @@ void	draw_square(t_v *v, int y, int x, int color)
 	}
 }
 
-void	tab_del(char **map)
+void	tab_del(t_v *v)
 {
 	int i;
 
 	i = 0;
-	while (map[i])
-		ft_strdel(&map[i++]);
-	free(map);
+	while (i < v->map_s.y)
+	{
+		ft_strdel(&v->map[i]);
+		i++;
+	}
+	free(v->map);
 }
 
 void	v_draw_all_squares(t_v *v)
@@ -106,12 +112,13 @@ void	v_draw_all_squares(t_v *v)
 
 	i.y = 0;
 	p.y = 0;
+	p.y = (1000 - (v->map_s.y * v->sq_s)) / 2;
 	color = 0;
 	get_square_size(v);
 	while (v->map[i.y])
 	{
-		i.x = 0;
 		p.x = 0;
+		i.x = 0;
 		while (v->map[i.y][i.x])
 		{
 			get_color(v, v->map[i.y][i.x], &color);
@@ -123,5 +130,4 @@ void	v_draw_all_squares(t_v *v)
 		p.y += v->sq_s;
 	}
 	draw_grid(v);
-//	tab_del(v->map);
 }
