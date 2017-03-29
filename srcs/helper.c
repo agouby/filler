@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 06:04:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 20:59:50 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 01:15:08 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		deal_with_star(t_fill *f, t_play *p, t_coord i)
 			count++;
 		if (p->touched == 0)
 			check_touched(f, p, i);
-		else if (p->won == 0)
+		else
 			get_neighbors(f, p, i);
 	}
 	return (count);

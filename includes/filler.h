@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:54:40 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 21:09:28 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 01:16:26 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct	s_player
 typedef struct	s_fill
 {
 	int			nb_op;
-	int			last_nb_op;
 	char		**map;
 	t_coord		map_s;
 	t_coord		pie_s;
@@ -60,7 +59,6 @@ typedef	struct	s_play
 	int			nei_pts;
 	int			best_nei;
 	int			touched;
-	int			won;
 	int			overlapped;
 	int			nb_tries;
 	char		dir[3];
@@ -68,7 +66,6 @@ typedef	struct	s_play
 
 void			filler(void);
 void			init_structs(t_fill *fill, t_play *play);
-void			static_init(t_fill *fill, t_play *play);
 void			get_player(int fd, t_play *play);
 void			store_infos(int fd, t_fill *fill, t_play *play);
 void			jump_lines(int fd, char *line, size_t i);

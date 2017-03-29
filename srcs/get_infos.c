@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 21:09:13 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 01:13:39 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ void	create_map(int fd, t_fill *fill, t_play *play)
 		}
 		i++;
 	}
-	if (fill->last_nb_op == fill->nb_op)
-		play->won = 1;
-	else
-		fill->last_nb_op = fill->nb_op;
 	fill->map[fill->map_s.y] = NULL;
 }
 

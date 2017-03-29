@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 02:13:48 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/27 21:08:47 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 01:16:41 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	filler(void)
 	t_play	play;
 
 	fd = 0;
-	static_init(&fill, &play);
+	play.touched = 0;
 	get_player(fd, &play);
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 13:05:29 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/28 08:57:13 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 00:17:13 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	v_get_player(t_v *v, char *line)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	if (ft_atoi(line + 10) == 1)
 	{
 		while (line[i + 23] != '.')
@@ -45,7 +47,6 @@ void	v_get_map(t_v *v, char *line)
 	int n;
 
 	i = 0;
-	n = 0;
 	get_next_line(0, &line);
 	ft_strdel(&line);
 	v->p1.nb_pos = 0;
