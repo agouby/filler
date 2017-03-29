@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 13:05:29 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/29 00:17:13 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/29 03:04:35 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	v_get_player(t_v *v, char *line)
 	i = 0;
 	if (ft_atoi(line + 10) == 1)
 	{
-		while (line[i + 23] != '.')
+		v->p1.name = ft_strchr(line, '/') + 1;
+		while (v->p1.name[i] != '.')
 			i++;
-		v->p1.name = ft_strnew(i);
-		v->p1.name = ft_strncpy(v->p1.name, line + 23, i);
+		v->p1.name[i] = '\0';
 		v->p1.c = 'O';
 	}
 	else
 	{
-		while (line[i + 23] != '.')
+		v->p2.name = ft_strchr(line, '/') + 1;
+		while (v->p2.name[i] != '.')
 			i++;
-		v->p2.name = ft_strnew(i);
-		v->p2.name = ft_strncpy(v->p2.name, line + 23, i);
+		v->p2.name[i] = '\0';
 		v->p2.c = 'X';
 	}
 }

@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/29 02:07:44 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/29 03:08:20 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ FLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ_fil) $(OBJ_vis)
-	make -C lib
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ_fil) -L./lib -lftprintf
-	$(CC) $(FLAGS) -o $(NAME_vis) $(OBJ_vis) -L./lib -lftprintf -lmlx -framework Appkit -framework OpenGL
+	make -C libft
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ_fil) -L./libft -lftprintf
+	$(CC) $(FLAGS) -o $(NAME_vis) $(OBJ_vis) -L./libft -lftprintf -lmlx -framework Appkit -framework OpenGL
 
 %.o: %.c
 	gcc $(FLAGS) $(INC)  -c $< -o $@
@@ -33,12 +33,12 @@ $(NAME): $(OBJ_fil) $(OBJ_vis)
 clean:
 	rm -rf $(OBJ_fil)
 	rm -rf $(OBJ_vis)
-	make clean -C lib
+	make clean -C libft
 
 fclean: clean
 	rm -rf $(NAME_vis)
 	rm -f $(NAME)
-	make fclean -C lib
+	make fclean -C libft
 re: fclean all
 
 .PHONY: all re clean fclean
