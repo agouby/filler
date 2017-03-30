@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 20:51:05 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/29 01:43:28 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/30 11:23:24 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct	s_v
 	t_coord	map_s;
 }				t_v;
 
-void			v_create_win(t_v *v);
 void			v_create_win(t_v *v);
 int				v_key_hook(int key, t_v *v);
 void			v_parse_file(t_v *v);

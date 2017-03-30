@@ -6,7 +6,7 @@
 #    By: agouby <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/11 14:57:55 by agouby            #+#    #+#              #
-#    Updated: 2017/03/29 03:08:20 by agouby           ###   ########.fr        #
+#    Updated: 2017/03/30 10:32:20 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = agouby.filler
 NAME_vis = visual.fx
 CC = gcc
 INC = -I./includes
-SRC_fil =  $(shell find ./srcs | grep "\.c")
-SRC_vis =  $(shell find ./visual | grep "\.c")
+SRC_fil =  $(shell find ./srcs | grep "\.c$$")
+SRC_vis =  $(shell find ./visual | grep "\.c$$")
 OBJ_fil = $(SRC_fil:%.c=%.o)
 OBJ_vis = $(SRC_vis:%.c=%.o)
 FLAGS = -Wall -Werror -Wextra

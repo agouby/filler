@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 13:05:29 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/30 09:56:21 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/30 11:33:23 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 
 void	v_get_player(t_v *v, char *line)
 {
-	int i;
+	char *s;
+	char *e;
 
-	i = 0;
-	if (ft_atoi(line + 10) == 1)
-	{
-		v->p1.name = ft_strchr(line, '/') + 1;
-		while (v->p1.name[i] != '.')
-			i++;
-		v->p1.name[i] = '\0';
-		v->p1.c = 'O';
-	}
-	else
-	{
-		v->p2.name = ft_strchr(line, '/') + 1;
-		while (v->p2.name[i] != '.')
-			i++;
-		v->p2.name[i] = '\0';
-		v->p2.c = 'X';
-	}
+	s = ft_strrchr(line, '/');
+	e = ft_strrchr(line, '.');
+	*e = '\0';
+	if (ft_atoi(line + 10) == 1 && s && e)
+		v->p1.name = s + 1;
+	else if (s && e)
+		v->p2.name = s + 1;
+	v->p1.c = 'O';
+	v->p2.c = 'X';
 }
 
 void	v_get_size_map(t_v *v, char *line)
@@ -76,9 +69,11 @@ void	v_parse_file(t_v *v)
 
 	while (get_next_line(0, &line))
 	{
+		if (ft_strstr(line, "./visual.fx"))
+			ft_print_error("Error. Taking the visualiser as a player is bad.");
 		if (ft_strstr(line, "error") || ft_strstr(line, "Usage")
-			|| ft_strstr(line, "the map is too small"))
-			ft_print_error("Error. The VM returned error.");
+				|| ft_strstr(line, "the map is too small"))
+			ft_print_error("Error. The VM is crying.");
 		if (ft_strstr(line, "$$$"))
 			v_get_player(v, line);
 		if (ft_strstr(line, "Plateau"))
@@ -89,4 +84,6 @@ void	v_parse_file(t_v *v)
 		if (ft_strstr(line, "Piece"))
 			return ;
 	}
+	if (v->map_s.y == 0 || v->map_s.x == 0)
+		ft_print_error("Error. The VM is crying");
 }
