@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 13:05:29 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/29 03:04:35 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/30 09:56:21 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	v_parse_file(t_v *v)
 
 	while (get_next_line(0, &line))
 	{
-		if (ft_strstr(line, "error"))
-			ft_print_error("Error. The VM didn't start.");
+		if (ft_strstr(line, "error") || ft_strstr(line, "Usage")
+			|| ft_strstr(line, "the map is too small"))
+			ft_print_error("Error. The VM returned error.");
 		if (ft_strstr(line, "$$$"))
 			v_get_player(v, line);
 		if (ft_strstr(line, "Plateau"))
