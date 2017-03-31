@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 13:05:29 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/30 11:33:23 by agouby           ###   ########.fr       */
+/*   Updated: 2017/03/31 04:59:31 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,19 @@ void	v_get_player(t_v *v, char *line)
 	e = ft_strrchr(line, '.');
 	*e = '\0';
 	if (ft_atoi(line + 10) == 1 && s && e)
-		v->p1.name = s + 1;
+		v->p1.name = ft_strdup(s + 1);
 	else if (s && e)
-		v->p2.name = s + 1;
+		v->p2.name = ft_strdup(s + 1);
 	v->p1.c = 'O';
 	v->p2.c = 'X';
+	ft_strdel(&line);
 }
 
 void	v_get_size_map(t_v *v, char *line)
 {
 	v->map_s.y = ft_atoi(line + 8);
 	v->map_s.x = ft_atoi(line + 8 + ft_count_digit(v->map_s.y, 10));
+	ft_strdel(&line);
 }
 
 void	v_get_map(t_v *v, char *line)
@@ -44,7 +46,6 @@ void	v_get_map(t_v *v, char *line)
 	ft_strdel(&line);
 	v->p1.nb_pos = 0;
 	v->p2.nb_pos = 0;
-	v->map = (char **)malloc(sizeof(char *) * (v->map_s.y + 1));
 	while (i < v->map_s.y && get_next_line(0, &line))
 	{
 		n = 0;
@@ -63,27 +64,18 @@ void	v_get_map(t_v *v, char *line)
 	v->map[i] = NULL;
 }
 
-void	v_parse_file(t_v *v)
+void	v_read_stdin(t_v *v)
 {
 	char *line;
 
 	while (get_next_line(0, &line))
 	{
-		if (ft_strstr(line, "./visual.fx"))
-			ft_print_error("Error. Taking the visualiser as a player is bad.");
-		if (ft_strstr(line, "error") || ft_strstr(line, "Usage")
-				|| ft_strstr(line, "the map is too small"))
-			ft_print_error("Error. The VM is crying.");
-		if (ft_strstr(line, "$$$"))
-			v_get_player(v, line);
 		if (ft_strstr(line, "Plateau"))
-		{
-			v_get_size_map(v, line);
 			v_get_map(v, line);
-		}
 		if (ft_strstr(line, "Piece"))
+		{
+			ft_strdel(&line);
 			return ;
+		}
 	}
-	if (v->map_s.y == 0 || v->map_s.x == 0)
-		ft_print_error("Error. The VM is crying");
 }
