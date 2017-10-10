@@ -6,7 +6,7 @@
 /*   By: agouby <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 02:46:26 by agouby            #+#    #+#             */
-/*   Updated: 2017/03/29 01:13:39 by agouby           ###   ########.fr       */
+/*   Updated: 2017/10/11 01:38:26 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,24 @@ void	get_player(int fd, t_play *play)
 		play->me.c = 'O';
 		play->op.c = 'X';
 	}
-	else
+	else if (line[10] == '2')
 	{
 		play->me.c = 'X';
+		play->op.c = 'O';
+	}
+	else if (line[10] == '3')
+	{
+		play->me.c = 'C';
+		play->op.c = 'O';
+	}
+	else if (line[10] == '4')
+	{
+		play->me.c = 'D';
+		play->op.c = 'O';
+	}
+	else if (line[10] == '5')
+	{
+		play->me.c = 'E';
 		play->op.c = 'O';
 	}
 	ft_strdel(&line);
